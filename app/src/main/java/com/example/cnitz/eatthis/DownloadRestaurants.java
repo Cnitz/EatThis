@@ -10,6 +10,8 @@ import com.example.cnitz.eatthis.RestaurantDb;
 /**
  * Created by sharrell on 9/21/15.
 
+Place object documentation: http://windy1.github.io/google-places-api-java/docs/
+
  */
 
 public class DownloadRestaurants {
