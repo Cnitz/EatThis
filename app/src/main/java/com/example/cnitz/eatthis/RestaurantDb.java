@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.app.Activity;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.content.Context;
@@ -16,7 +17,7 @@ import com.example.cnitz.eatthis.ETPlace;
  * Created by sharrell on 9/21/15.
  */
 
-public final class RestaurantDb {
+public final class RestaurantDb  extends Activity {
 
 	private SQLiteDatabase writableDatabase = null; 
 	private SQLiteDatabase readableDatabase = null; 
@@ -73,7 +74,7 @@ public final class RestaurantDb {
 	public void InsertRestaurant(ETPlace place) {
 		RestaurantDbHelper dbHelper;
 		if(writableDatabase == null) {
-			dbHelper = new RestaurantDbHelper(getContext());
+			dbHelper = new RestaurantDbHelper(getApplicationContext());
 			writableDatabase = dbHelper.getWritableDatabase();
 		}
 		ContentValues values = new ContentValues();
@@ -104,7 +105,7 @@ public final class RestaurantDb {
 		};
 
 		if(readableDatabase == null) {
-			dbHelper = new RestaurantDbHelper(getContext());
+			dbHelper = new RestaurantDbHelper(getApplicationContext());
 			readableDatabase = dbHelper.getReadableDatabase();
 		}
 
