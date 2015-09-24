@@ -6,11 +6,16 @@ import se.walkercrou.places.Price;
 /**
  * Created by sharrell on 9/21/15.
 
-Place object documentation: http://windy1.github.io/google-places-api-java/docs/
+Google Place Java API documentation: http://windy1.github.io/google-places-api-java/docs/
+Place object doc: http://windy1.github.io/google-places-api-java/docs/se/walkercrou/places/Place.html
+Price enum object doc: http://windy1.github.io/google-places-api-java/docs/se/walkercrou/places/Price.html
+
 
  */
 
 public class ETPlace extends Place {
+
+	// Added functionality
 
 	public Integer foodType;
 
@@ -23,7 +28,7 @@ public class ETPlace extends Place {
 		return this;
 	}
 
-	// UGH PROTECTED
+	// Override because of protected keyword
 	public double lat;
 	public double lng;
 	public String name;

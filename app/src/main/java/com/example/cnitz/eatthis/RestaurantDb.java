@@ -50,9 +50,6 @@ public final class RestaurantDb {
 		public static final String COLUMN_PRICE_LEVEL = "pricelevel"; //int
 	}
 
-// write dummy data function
-// write get everything out function
-
 
 	public class RestaurantDbHelper extends SQLiteOpenHelper {
 		// If you change the database schema, you must increment the database version.
@@ -70,6 +67,8 @@ public final class RestaurantDb {
 			onCreate(db);
 		}
 	}
+
+	// Place object doc: http://windy1.github.io/google-places-api-java/docs/se/walkercrou/places/Place.html
 
 	public void InsertRestaurant(ETPlace place) {
 		RestaurantDbHelper dbHelper;
