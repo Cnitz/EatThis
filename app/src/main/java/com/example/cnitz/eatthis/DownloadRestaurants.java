@@ -39,7 +39,7 @@ public class DownloadRestaurants {
 		ListIterator<Place> iter = restaurantList.listIterator();
 		while(iter.hasNext()) {
 			Place currentPlace = iter.next();
-			db.InsertRestaurant(currentPlace.getPlaceId(), currentPlace.getName());
+			db.InsertRestaurant((ETPlace) currentPlace);
 
 		}
 			
