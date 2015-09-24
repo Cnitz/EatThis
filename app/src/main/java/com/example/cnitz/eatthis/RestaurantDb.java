@@ -52,10 +52,12 @@ public final class RestaurantDb {
 
 	public void InsertRestaurant(String id, String name) {
 		RestaurantDbHelper dbHelper;
+
 		if(writableDatabase == null) {
 			dbHelper = new RestaurantDbHelper(getContext());
 			writableDatabase = dbHelper.getWritableDatabase();
 		}
+
 		ContentValues values = new ContentValues();
 		values.put(RestaurantEntry.COLUMN_NAME_RESTAURANT_ID, id);
 		values.put(RestaurantEntry.COLUMN_NAME_NAME, name);

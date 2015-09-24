@@ -1,15 +1,20 @@
 package com.example.cnitz.eatthis;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.cnitz.eatthis.dummy.DummyContent;
@@ -23,16 +28,29 @@ import com.example.cnitz.eatthis.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class RestaurantsListFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class RestaurantsListFragment extends Fragment implements AbsListView.OnItemClickListener, View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String REST1 = "rest1";
+    private static final String REST2 = "rest2";
+    private static final String REST3 = "rest3";
+    private static final String REST4 = "rest4";
+    private static final String REST5 = "rest5";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private static String rest1;
+    private static String rest2;
+    private static String rest3;
+    private static String rest4;
+    private static String rest5;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -51,8 +69,14 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
     public static RestaurantsListFragment newInstance(String param1, String param2) {
         RestaurantsListFragment fragment = new RestaurantsListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+       //args.putString(ARG_PARAM1, param1);
+       // args.putString(ARG_PARAM2, param2);
+        args.putString(REST1, rest1);
+        args.putString(REST2, rest2);
+        args.putString(REST3, rest3);
+        args.putString(REST4, rest4);
+        args.putString(REST5, rest5);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,6 +100,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         // TODO: Change Adapter to display your content
         mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+
     }
 
     @Override
@@ -89,10 +114,62 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
+        Button b = (Button) view.findViewById(R.id.button);
+        b.setOnClickListener(this);
+
+
 
         return view;
     }
 
+    public void createFoodtype(){
+        final CharSequence [] foodtypes = {"Asian", "Pizza", "Mexican"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+
+        builder.setTitle("Food Types");
+        builder.setItems(foodtypes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.out.println(foodtypes[which]);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+                builder.create();
+                // builder.setView(view);
+                builder.show();
+      //  final AlertDialog alert = builder.create();
+    }
+
+    public void createPriceRange(){
+        final CharSequence [] priceRange = {};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle("Price Range");
+        builder.setItems(priceRange, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.out.println(priceRange[which]);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create();
+
+        builder.show();
+
+    }
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -129,6 +206,15 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
 
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.button:
+                createFoodtype();
+                break;
         }
     }
 
