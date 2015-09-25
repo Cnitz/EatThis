@@ -33,7 +33,7 @@ public class DownloadRestaurants {
 		restaurantList = client.getNearbyPlaces(lat, lng, radius, GooglePlaces.MAXIMUM_RESULTS, Param.name("type").value("restaurant"));
 	}
 
-	
+/*
 	public void AddResturauntListToDatabase() {
 		RestaurantDb db = new RestaurantDb();
 		ListIterator<Place> iter = restaurantList.listIterator();
@@ -44,6 +44,6 @@ public class DownloadRestaurants {
 		}
 			
 	}	
-
+*/
 	
 }

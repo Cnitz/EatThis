@@ -11,21 +11,25 @@ import android.provider.BaseColumns;
 import android.content.Context;
 import android.content.ContentValues;
 import se.walkercrou.places.Price;
+
+
 import com.example.cnitz.eatthis.ETPlace;
+
 
 /**
  * Created by sharrell on 9/21/15.
  */
 
-public final class RestaurantDb  extends Activity {
+public final class RestaurantDb  {
 
 	private SQLiteDatabase writableDatabase = null; 
-	private SQLiteDatabase readableDatabase = null; 
+	private SQLiteDatabase readableDatabase = null;
+	private Context mContext;
 
 	private static final String SQL_CREATE_ENTRIES = 
-		"CREATE TABLE" + RestaurantEntry.TABLE_NAME + " (" + 
-		RestaurantEntry._ID + " INTEGER PRIMARY KEY," + 
-		RestaurantEntry.COLUMN_RESTAURANT_ID + " TEXT," +
+		"CREATE TABLE " + RestaurantEntry.TABLE_NAME + " (" +
+		RestaurantEntry._ID + " INTEGER PRIMARY KEY," +
+        RestaurantEntry.COLUMN_NAME + " TEXT," +
 		RestaurantEntry.COLUMN_ADDRESS + " TEXT," +
 		RestaurantEntry.COLUMN_LAT + " REAL," +
 		RestaurantEntry.COLUMN_LONG + " REAL," +
@@ -37,12 +41,14 @@ public final class RestaurantDb  extends Activity {
 	private static final String SQL_DELETE_ENTRIES =
 		"DROP TABLE IF EXISTS " + RestaurantEntry.TABLE_NAME;
 
-	public RestaurantDb() {}
+	public RestaurantDb(Context lContext) {
+		mContext = lContext;
+	}
 
 	public abstract class RestaurantEntry implements BaseColumns {
 		public static final String TABLE_NAME = "restaurant";
 		public static final String COLUMN_RESTAURANT_ID = "restaurantid";
-		public static final String COLUMN_NAME = "name";
+		public static final String COLUMN_NAME = "restname";
 		public static final String COLUMN_ADDRESS = "address";
 		public static final String COLUMN_LAT = "lat"; // double
 		public static final String COLUMN_LONG = "lng"; //double
@@ -75,13 +81,14 @@ public final class RestaurantDb  extends Activity {
 		RestaurantDbHelper dbHelper;
 
 		if(writableDatabase == null) {
-			dbHelper = new RestaurantDbHelper(getApplicationContext());
+			dbHelper = new RestaurantDbHelper(mContext);
 			writableDatabase = dbHelper.getWritableDatabase();
 		}
 
 		ContentValues values = new ContentValues();
 		values.put(RestaurantEntry.COLUMN_RESTAURANT_ID, place.getPlaceId());
-		values.put(RestaurantEntry.COLUMN_ADDRESS, place.getName());
+		values.put(RestaurantEntry.COLUMN_NAME, place.getName());
+		values.put(RestaurantEntry.COLUMN_ADDRESS, place.getAddress());
 		values.put(RestaurantEntry.COLUMN_LAT, place.getLatitude());
 		values.put(RestaurantEntry.COLUMN_LONG, place.getLongitude());
 		values.put(RestaurantEntry.COLUMN_FOOD_TYPE, place.getFoodType());
@@ -102,6 +109,7 @@ public final class RestaurantDb  extends Activity {
 		String[] restaurantColumns = {
 			RestaurantEntry.COLUMN_RESTAURANT_ID,
 			RestaurantEntry.COLUMN_ADDRESS,
+	        RestaurantEntry.COLUMN_NAME,
 			RestaurantEntry.COLUMN_LAT,
 			RestaurantEntry.COLUMN_LONG,
 			RestaurantEntry.COLUMN_FOOD_TYPE,
@@ -137,7 +145,7 @@ public final class RestaurantDb  extends Activity {
 */
 
 		if(readableDatabase == null) {
-			dbHelper = new RestaurantDbHelper(getApplicationContext());
+			dbHelper = new RestaurantDbHelper(mContext);
 			readableDatabase = dbHelper.getReadableDatabase();
 		}
 
@@ -203,6 +211,7 @@ public final class RestaurantDb  extends Activity {
 
 
 	public void CreateExampleData() {
+
 
 		ETPlace place;
 		int i;

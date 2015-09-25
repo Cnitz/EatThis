@@ -95,10 +95,10 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rDB = new RestaurantDb();
-//        rDB.CreateExampleData();
-//        restList = rDB.GetAllRestaurants();
-        restList = new ArrayList<>();
+        rDB = new RestaurantDb(getActivity().getApplicationContext());
+        rDB.CreateExampleData();
+        restList = rDB.GetAllRestaurants();
+//        restList = new ArrayList<>();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
