@@ -16,6 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Statistics_Input"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_statistics__input"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".StatisticsInput"
+            android:label="@string/title_activity_statistics_input" >
+        </activity>
     </application>
 
 </manifest>
