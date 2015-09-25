@@ -70,7 +70,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
     private RestaurantDb rDB;
 
     // TODO: Rename and change types of parameters
-    public static RestaurantsListFragment newInstance(String param1, String param2) {
+    public static RestaurantsListFragment newInstance() {
         RestaurantsListFragment fragment = new RestaurantsListFragment();
         Bundle args = new Bundle();
         //args.putString(ARG_PARAM1, param1);
@@ -96,9 +96,9 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rDB = new RestaurantDb();
-        rDB.CreateExampleData();
-        restList = rDB.GetAllRestaurants();
-
+//        rDB.CreateExampleData();
+//        restList = rDB.GetAllRestaurants();
+        restList = new ArrayList<>();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
