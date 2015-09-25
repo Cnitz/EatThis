@@ -197,7 +197,7 @@ public final class RestaurantDb  extends Activity {
 	}
 	
 	public List<ETPlace> GetAllRestaurants() {
-		return GetRestaurants(null, null, null)
+		return GetRestaurants(null, null, null);
 		
 	}
 
