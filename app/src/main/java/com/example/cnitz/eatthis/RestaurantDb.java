@@ -73,10 +73,12 @@ public final class RestaurantDb  extends Activity {
 
 	public void InsertRestaurant(ETPlace place) {
 		RestaurantDbHelper dbHelper;
+
 		if(writableDatabase == null) {
 			dbHelper = new RestaurantDbHelper(getApplicationContext());
 			writableDatabase = dbHelper.getWritableDatabase();
 		}
+
 		ContentValues values = new ContentValues();
 		values.put(RestaurantEntry.COLUMN_RESTAURANT_ID, place.getPlaceId());
 		values.put(RestaurantEntry.COLUMN_ADDRESS, place.getName());
