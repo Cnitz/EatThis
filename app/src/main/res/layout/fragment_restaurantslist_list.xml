@@ -7,7 +7,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filter By.."
+        android:text="Food Types"
         android:id="@+id/button"
         android:onClick="selectFilter"
         android:layout_gravity="left|top" />
@@ -15,6 +15,20 @@
     <ListView android:id="@android:id/list" android:layout_width="match_parent"
         android:layout_height="395dp"
         android:layout_gravity="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rating Range"
+        android:id="@+id/button3"
+        android:layout_gravity="right|top" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price Range"
+        android:id="@+id/button2"
+        android:layout_gravity="center_horizontal|top" />
 
 
 </FrameLayout>
