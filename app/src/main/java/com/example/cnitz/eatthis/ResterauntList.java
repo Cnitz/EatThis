@@ -1,6 +1,8 @@
 package com.example.cnitz.eatthis;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,7 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class ResterauntList extends Activity {
+public class ResterauntList extends Activity implements RestaurantsListFragment.OnFragmentInteractionListener{
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     String[] drawerStrings = { "Christian", "Likes", "To", "Eat", "Cheese" };
@@ -30,6 +32,11 @@ public class ResterauntList extends Activity {
                 switch (position){
                     case 0:
                         text = "You clicked on option 0";
+                        RestaurantsListFragment frg = RestaurantsListFragment.newInstance();
+                        FragmentTransaction trans = getFragmentManager().beginTransaction();
+                        trans.replace(R.id.content_frame, frg);
+                        trans.addToBackStack(null);
+                        trans.commit();
                         break;
                     case 1:
                         text = "You clicked on option 1";
@@ -77,5 +84,10 @@ public class ResterauntList extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(String id) {
+
     }
 }
