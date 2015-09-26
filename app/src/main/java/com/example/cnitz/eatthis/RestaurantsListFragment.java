@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.example.cnitz.eatthis.dummy.DummyContent;
 
@@ -91,6 +92,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
      */
     public RestaurantsListFragment() {
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

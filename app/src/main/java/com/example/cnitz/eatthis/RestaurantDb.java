@@ -29,6 +29,7 @@ public final class RestaurantDb  {
 	private static final String SQL_CREATE_ENTRIES = 
 		"CREATE TABLE " + RestaurantEntry.TABLE_NAME + " (" +
 		RestaurantEntry._ID + " INTEGER PRIMARY KEY," +
+		RestaurantEntry.COLUMN_RESTAURANT_UNIQUE + " TEXT," +
         RestaurantEntry.COLUMN_NAME + " TEXT," +
 		RestaurantEntry.COLUMN_ADDRESS + " TEXT," +
 		RestaurantEntry.COLUMN_LAT + " REAL," +
@@ -47,7 +48,7 @@ public final class RestaurantDb  {
 
 	public abstract class RestaurantEntry implements BaseColumns {
 		public static final String TABLE_NAME = "restaurant";
-		public static final String COLUMN_RESTAURANT_ID = "restaurantid";
+		public static final String COLUMN_RESTAURANT_UNIQUE = "restaurantunique";
 		public static final String COLUMN_NAME = "restname";
 		public static final String COLUMN_ADDRESS = "address";
 		public static final String COLUMN_LAT = "lat"; // double
@@ -62,6 +63,7 @@ public final class RestaurantDb  {
 		// If you change the database schema, you must increment the database version.
 		public static final int DATABASE_VERSION = 1;
 		public static final String DATABASE_NAME = "Restaurant.db";
+
 
 		public RestaurantDbHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -82,11 +84,12 @@ public final class RestaurantDb  {
 
 		if(writableDatabase == null) {
 			dbHelper = new RestaurantDbHelper(mContext);
+
 			writableDatabase = dbHelper.getWritableDatabase();
 		}
 
 		ContentValues values = new ContentValues();
-		values.put(RestaurantEntry.COLUMN_RESTAURANT_ID, place.getPlaceId());
+		values.put(RestaurantEntry.COLUMN_RESTAURANT_UNIQUE, place.getPlaceId());
 		values.put(RestaurantEntry.COLUMN_NAME, place.getName());
 		values.put(RestaurantEntry.COLUMN_ADDRESS, place.getAddress());
 		values.put(RestaurantEntry.COLUMN_LAT, place.getLatitude());
@@ -97,6 +100,7 @@ public final class RestaurantDb  {
 	
 		long newRowId = writableDatabase.insert(RestaurantEntry.TABLE_NAME,
 			 null, values);
+
 	}
 
 	
@@ -107,7 +111,7 @@ public final class RestaurantDb  {
 		List<ETPlace> restaurants = new ArrayList<ETPlace>();;
 		ETPlace place;
 		String[] restaurantColumns = {
-			RestaurantEntry.COLUMN_RESTAURANT_ID,
+			RestaurantEntry.COLUMN_RESTAURANT_UNIQUE,
 			RestaurantEntry.COLUMN_ADDRESS,
 	        RestaurantEntry.COLUMN_NAME,
 			RestaurantEntry.COLUMN_LAT,
@@ -164,9 +168,9 @@ public final class RestaurantDb  {
 			place = new ETPlace();
 
 			place.setPlaceId(
-				cursor.getString(
-					cursor.getColumnIndexOrThrow(
-						RestaurantEntry.COLUMN_RESTAURANT_ID)));
+					cursor.getString(
+							cursor.getColumnIndexOrThrow(
+									RestaurantEntry.COLUMN_RESTAURANT_UNIQUE)));
 			place.setName(
 				cursor.getString(
 					cursor.getColumnIndexOrThrow(
@@ -199,7 +203,8 @@ public final class RestaurantDb  {
 			restaurants.add(place);
 
 		} while(cursor.moveToNext()); 
-				
+
+
 		return restaurants;
 
 	}
@@ -211,7 +216,14 @@ public final class RestaurantDb  {
 
 
 	public void CreateExampleData() {
+		RestaurantDbHelper dbHelper;
+		if(writableDatabase == null) {
+			dbHelper = new RestaurantDbHelper(mContext);
 
+			writableDatabase = dbHelper.getWritableDatabase();
+		}
+		writableDatabase.execSQL(SQL_DELETE_ENTRIES);
+		writableDatabase.execSQL(SQL_CREATE_ENTRIES);
 
 		ETPlace place;
 		int i;
