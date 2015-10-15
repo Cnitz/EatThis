@@ -52,10 +52,15 @@ public class StatisticsInput extends ActionBarActivity {
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        restaurant.getText();
-                        price.getText();
-                        menuItems.getText();
+                        
+                        if(isEmpty(restaurant))
+                            restaurant.getText();
+
+                        if(isEmpty(price))
+                            price.getText();
+
                         summary.getText();
+                        menuItems.getText();
                         rating.getNumStars();
 
                     }
@@ -88,7 +93,10 @@ public class StatisticsInput extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public static boolean isEmpty(EditText et){
+        return et.getText().toString().trim().length() != 0;
 
+    }
 
 
 }
