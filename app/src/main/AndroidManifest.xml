@@ -10,6 +10,17 @@
         <activity
             android:name=".ResterauntList"
             android:label="@string/app_name" >
+
+        </activity>
+        <activity
+            android:name=".Statistics_Input"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_statistics__input"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".StatisticsInput"
+            android:label="@string/title_activity_statistics_input" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
