@@ -84,5 +84,17 @@ public final class RestaurantDbTest extends AndroidTestCase  {
 
 	}
 
+    @Test
+    public void testCreateExampleData() {
+        rDB.CreateExampleData();
+
+        List<ETPlace> places = rDB.GetAllRestaurants();
+
+        assertEquals(10, places.size());
+        assertEquals("123450", places.get(0).getPlaceId());
+        assertEquals("123459", places.get(9).getPlaceId());
+
+    }
+
 }
 
