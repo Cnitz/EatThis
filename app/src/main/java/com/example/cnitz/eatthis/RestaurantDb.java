@@ -1,19 +1,18 @@
 package com.example.cnitz.eatthis;
 
 
-import java.util.List;
-import java.util.ArrayList;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.app.Activity;
-import android.database.Cursor;
 import android.provider.BaseColumns;
-import android.content.Context;
-import android.content.ContentValues;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import se.walkercrou.places.Price;
-
-
-import com.example.cnitz.eatthis.ETPlace;
 
 
 /**
@@ -22,9 +21,9 @@ import com.example.cnitz.eatthis.ETPlace;
 
 public final class RestaurantDb  {
 
-	private SQLiteDatabase writableDatabase = null; 
-	private SQLiteDatabase readableDatabase = null;
+	private SQLiteDatabase writableDatabase = null;
 	private Context mContext;
+    private String databaseName = "Restaurant.db";
 
 	private static final String SQL_CREATE_ENTRIES = 
 		"CREATE TABLE " + RestaurantEntry.TABLE_NAME + " (" +
@@ -46,6 +45,12 @@ public final class RestaurantDb  {
 		mContext = lContext;
 	}
 
+    public RestaurantDb(Context lContext, boolean test) {
+        if(test) { databaseName = null; }
+        mContext = lContext;
+    }
+
+
 	public abstract class RestaurantEntry implements BaseColumns {
 		public static final String TABLE_NAME = "restaurant";
 		public static final String COLUMN_RESTAURANT_UNIQUE = "restaurantunique";
@@ -62,12 +67,14 @@ public final class RestaurantDb  {
 	public class RestaurantDbHelper extends SQLiteOpenHelper {
 		// If you change the database schema, you must increment the database version.
 		public static final int DATABASE_VERSION = 1;
-		public static final String DATABASE_NAME = "Restaurant.db";
+
 
 
 		public RestaurantDbHelper(Context context) {
-			super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            super(context, databaseName, null, DATABASE_VERSION);
 		}
+
+
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(SQL_CREATE_ENTRIES);
 		}
@@ -79,7 +86,7 @@ public final class RestaurantDb  {
 
 	// Place object doc: http://windy1.github.io/google-places-api-java/docs/se/walkercrou/places/Place.html
 
-	public void InsertRestaurant(ETPlace place) {
+	public long InsertRestaurant(ETPlace place) {
 		RestaurantDbHelper dbHelper;
 
 		if(writableDatabase == null) {
@@ -98,8 +105,7 @@ public final class RestaurantDb  {
 		values.put(RestaurantEntry.COLUMN_RATING, place.getRating());
 		values.put(RestaurantEntry.COLUMN_PRICE_LEVEL, place.getPrice().toString());
 	
-		long newRowId = writableDatabase.insert(RestaurantEntry.TABLE_NAME,
-			 null, values);
+		return writableDatabase.insertOrThrow(RestaurantEntry.TABLE_NAME, null, values);
 
 	}
 
@@ -107,8 +113,9 @@ public final class RestaurantDb  {
 	// grab based on food type, rating, price
 	// unittest
 	public List<ETPlace> GetRestaurants(Integer foodType, Double rating, Price price) {
+
 		RestaurantDbHelper dbHelper;
-		List<ETPlace> restaurants = new ArrayList<ETPlace>();;
+		List<ETPlace> restaurants = new ArrayList<ETPlace>();
 		ETPlace place;
 		String[] restaurantColumns = {
 			RestaurantEntry.COLUMN_RESTAURANT_UNIQUE,
@@ -148,12 +155,13 @@ public final class RestaurantDb  {
 		}
 */
 
-		if(readableDatabase == null) {
+		if(writableDatabase == null) {
 			dbHelper = new RestaurantDbHelper(mContext);
-			readableDatabase = dbHelper.getReadableDatabase();
+			writableDatabase = dbHelper.getWritableDatabase();
 		}
 
-		Cursor cursor = readableDatabase.query(
+        //Cursor cursor = writableDatabase.rawQuery("SELECT * FROM " + RestaurantEntry.TABLE_NAME, null);
+		Cursor cursor = writableDatabase.query(
     			RestaurantEntry.TABLE_NAME,  // The table to query
     			restaurantColumns,           // The columns to return
     			null,                        // The columns for the WHERE clause
@@ -161,7 +169,9 @@ public final class RestaurantDb  {
 			null,                        // don't group the rows
 			null,                        // don't filter by row groups
 			null                         // The sort order
-		);
+        );
+        Log.d("Testing Info", "row count: " + cursor.getCount());
+
 		cursor.moveToFirst();
 
 		do {
@@ -214,8 +224,7 @@ public final class RestaurantDb  {
 		
 	}
 
-
-	public void CreateExampleData() {
+	public void ResetDatabase() {
 		RestaurantDbHelper dbHelper;
 		if(writableDatabase == null) {
 			dbHelper = new RestaurantDbHelper(mContext);
@@ -224,6 +233,11 @@ public final class RestaurantDb  {
 		}
 		writableDatabase.execSQL(SQL_DELETE_ENTRIES);
 		writableDatabase.execSQL(SQL_CREATE_ENTRIES);
+	}
+
+	public void CreateExampleData() {
+
+		ResetDatabase();
 
 		ETPlace place;
 		int i;
