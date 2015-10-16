@@ -27,9 +27,18 @@ repositories {
     mavenCentral()
 }
 
+android {
+    defaultConfig {
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+}
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'se.walkercrou:google-places-api-java:2.1.2'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    compile 'com.android.support:support-annotations:22.2.0'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
 }
