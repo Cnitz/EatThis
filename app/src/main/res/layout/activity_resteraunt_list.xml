@@ -7,7 +7,16 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:id="@+id/menuButton"
+            android:onClick="openMenu"
+            android:layout_gravity="left|top" />
+    </FrameLayout>
     <!-- The navigation drawer -->
     <ListView
     android:id="@+id/navList"
@@ -15,4 +24,6 @@
     android:layout_height="match_parent"
     android:layout_gravity="left|start"
     android:background="#ffeeeeee"/>
+
+
 </android.support.v4.widget.DrawerLayout>

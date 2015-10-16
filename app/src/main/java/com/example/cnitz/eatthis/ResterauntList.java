@@ -1,9 +1,12 @@
 package com.example.cnitz.eatthis;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,21 +16,64 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class ResterauntList extends Activity {
+public class ResterauntList extends ActionBarActivity  {
     private ListView mDrawerList;
+
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private String mActivityTitle;
     private ArrayAdapter<String> mAdapter;
-    String[] drawerStrings = { "Christian", "Likes", "To", "Eat", "Cheese" };
-    @Override
+
+   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resteraunt_list);
-        mDrawerList = (ListView)findViewById(R.id.navList);
+       setContentView(R.layout.activity_resteraunt_list);
+
+       mDrawerList = (ListView)findViewById(R.id.navList);
+       mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+        mActivityTitle = "EatThis";
+
         addDrawerItems();
+        setupDrawer();
+
+       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       getSupportActionBar().setHomeButtonEnabled(true);
+
+    }
+
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Navigation!");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mActivityTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    private void addDrawerItems() {
+        String[] drawerStrings = { "Restaurant List", "Schedule", "Map ", "Statistics", "Preferences" };
+
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawerStrings);
+        mDrawerList.setAdapter(mAdapter);
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String text = "";
-                switch (position){
+                switch (position) {
                     case 0:
                         text = "You clicked on option 0";
                         break;
@@ -47,12 +93,6 @@ public class ResterauntList extends Activity {
                 Toast.makeText(ResterauntList.this, text, Toast.LENGTH_SHORT).show();
             }
         });
-
-    }
-    private void addDrawerItems() {
-
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawerStrings);
-        mDrawerList.setAdapter(mAdapter);
     }
 
 
@@ -62,6 +102,19 @@ public class ResterauntList extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_resteraunt_list, menu);
         return true;
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -75,7 +128,12 @@ public class ResterauntList extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void openMenu(View view) {
     }
 }
