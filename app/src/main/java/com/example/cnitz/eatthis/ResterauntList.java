@@ -14,6 +14,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import android.widget.Toast;
 
 
@@ -24,6 +33,11 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
     private String mActivityTitle;
     private ArrayAdapter<String> mAdapter;
 
+    private GoogleMap map;
+
+    static final LatLng HAMBURG = new LatLng(53.558, 9.927);
+    static final LatLng KIEL = new LatLng(53.551, 9.993);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +47,21 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         addDrawerItems();
         setupDrawer();
-
         mActivityTitle = "EatThis";
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+
+
+
+        //Move the camera instantly to hamburg with a zoom of 15.
+       // map.moveCamera(CameraUpdateFactory.newLatLngZoom(HAMBURG, 15));
+
+// Zoom in, animating the camera.
+        //map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+
+
 
     }
 
@@ -52,7 +76,6 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
                 String text = "";
                 switch (position) {
                     case 0:
-                        text = "You clicked on option 0";
                         RestaurantsListFragment frg = RestaurantsListFragment.newInstance();
                         FragmentTransaction trans = getFragmentManager().beginTransaction();
                         trans.replace(R.id.content_frame, frg);
@@ -72,7 +95,7 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
                         text = "You clicked on option 4";
                         break;
                 }
-                Toast.makeText(ResterauntList.this, text, Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -81,14 +104,13 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely open state. */
+
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navigation!");
+                getSupportActionBar().setTitle("Main Menu");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 getSupportActionBar().setTitle(mActivityTitle);
