@@ -52,7 +52,7 @@ public class StatisticsInput extends ActionBarActivity {
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        
+                        //TODO: Determine Required Fields
                         if(isEmpty(restaurant))
                             restaurant.getText();
 
