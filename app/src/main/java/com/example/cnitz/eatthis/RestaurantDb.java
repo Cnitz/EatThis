@@ -92,7 +92,10 @@ public final class RestaurantDb  extends Activity {
 			 null, values);
 	}
 
-	public List<ETPlace> GetAllRestaurants() {
+	
+	// grab based on food type, rating, price
+	// unittest
+	public List<ETPlace> GetRestaurants(Integer foodType, Double rating, Price price) {
 		RestaurantDbHelper dbHelper;
 		List<ETPlace> restaurants = new ArrayList<ETPlace>();;
 		ETPlace place;
@@ -105,6 +108,33 @@ public final class RestaurantDb  extends Activity {
 			RestaurantEntry.COLUMN_RATING,
 			RestaurantEntry.COLUMN_PRICE_LEVEL
 		};
+		String selection = "";
+		List<String> selectionColumns;
+		int selections;
+/*
+		if(foodType != null) {
+			selections;
+			selection = selection + RestaurantEntry.COLUMN_FOOD_TYPE + "=?";
+			selectionColumns.add(foodType.toString);
+		}
+		if(foodType != null) {
+			selections;
+			selection = selection + RestaurantEntry.COLUMN_FOOD_TYPE + "=?";
+			selectionColumns.add(foodType.toString);
+		}
+		if(foodType != null) {
+			selections;
+			selection = selection + RestaurantEntry.COLUMN_FOOD_TYPE + "=?";
+			selectionColumns.add(foodType.toString);
+		}
+			
+		
+		rating != null 
+		price != null) {
+			
+			
+		}
+*/
 
 		if(readableDatabase == null) {
 			dbHelper = new RestaurantDbHelper(getApplicationContext());
@@ -161,13 +191,16 @@ public final class RestaurantDb  extends Activity {
 			restaurants.add(place);
 
 		} while(cursor.moveToNext()); 
-		
-
-
 				
 		return restaurants;
 
 	}
+	
+	public List<ETPlace> GetAllRestaurants() {
+		return GetRestaurants(null, null, null);
+		
+	}
+
 
 	public void CreateExampleData() {
 

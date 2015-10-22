@@ -19,6 +19,9 @@ import android.widget.TextView;
 
 import com.example.cnitz.eatthis.dummy.DummyContent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -39,8 +42,8 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
     private static final String REST3 = "rest3";
     private static final String REST4 = "rest4";
     private static final String REST5 = "rest5";
-
-
+    ETPlace etPlace;
+    List<ETPlace> restList;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -64,13 +67,14 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
      * Views.
      */
     private ListAdapter mAdapter;
+    private RestaurantDb rDB;
 
     // TODO: Rename and change types of parameters
-    public static RestaurantsListFragment newInstance(String param1, String param2) {
+    public static RestaurantsListFragment newInstance() {
         RestaurantsListFragment fragment = new RestaurantsListFragment();
         Bundle args = new Bundle();
-       //args.putString(ARG_PARAM1, param1);
-       // args.putString(ARG_PARAM2, param2);
+        //args.putString(ARG_PARAM1, param1);
+        // args.putString(ARG_PARAM2, param2);
         args.putString(REST1, rest1);
         args.putString(REST2, rest2);
         args.putString(REST3, rest3);
@@ -91,15 +95,19 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        rDB = new RestaurantDb();
+//        rDB.CreateExampleData();
+//        restList = rDB.GetAllRestaurants();
+        restList = new ArrayList<>();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        mAdapter = new ArrayAdapter<ETPlace>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, restList);
+
 
     }
 
@@ -118,12 +126,19 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         b.setOnClickListener(this);
 
 
-
         return view;
     }
 
-    public void createFoodtype(){
-        final CharSequence [] foodtypes = {"Asian", "Pizza", "Mexican"};
+    public void printList(ETPlace place) {
+        //print the list everytime
+        //put this on the list
+        place.getName();
+
+
+    }
+
+    public void createFoodtype() {
+        final CharSequence[] foodtypes = {"Asian", "Pizza", "Mexican"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 
@@ -132,6 +147,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 System.out.println(foodtypes[which]);
+               // mListView.setAdapter();
                 dialog.dismiss();
             }
         });
@@ -141,14 +157,40 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
                 dialog.dismiss();
             }
         });
-                builder.create();
-                // builder.setView(view);
-                builder.show();
-      //  final AlertDialog alert = builder.create();
+        builder.create();
+        // builder.setView(view);
+        builder.show();
+        //  final AlertDialog alert = builder.create();
     }
 
-    public void createPriceRange(){
-        final CharSequence [] priceRange = {};
+    public void createRatingRange() {
+        final CharSequence[] ratingRange = {};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle("Rating Range");
+        builder.setItems(ratingRange, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.out.println(ratingRange[which]);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create();
+
+        builder.show();
+
+
+    }
+
+    public void createPriceRange() {
+        final CharSequence[] priceRange = {};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Price Range");
@@ -170,6 +212,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         builder.show();
 
     }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -211,9 +254,15 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.button:
                 createFoodtype();
+                break;
+            case R.id.button2:
+                createPriceRange();
+                break;
+            case R.id.button3:
+                createRatingRange();
                 break;
         }
     }
