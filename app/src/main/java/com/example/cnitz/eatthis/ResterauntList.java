@@ -3,6 +3,7 @@ package com.example.cnitz.eatthis;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -61,15 +62,17 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
                         break;
                     case 1:
                         text = "You clicked on option 1";
+                        startActivity(new Intent(ResterauntList.this, ScheduleMain.class));
                         break;
                     case 2:
-                        text = "You clicked on option 2";
+                        text = "Map Page";
                         break;
                     case 3:
+                        startActivity(new Intent(ResterauntList.this, StatisticsInput.class));
                         text = "You clicked on option 3";
                         break;
                     case 4:
-                        text = "You clicked on option 4";
+                        text = "Preferences";
                         break;
                 }
                 Toast.makeText(ResterauntList.this, text, Toast.LENGTH_SHORT).show();
