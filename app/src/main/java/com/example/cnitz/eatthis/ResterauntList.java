@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -26,13 +27,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.widget.Toast;
 
 
-public class ResterauntList extends ActionBarActivity  implements RestaurantsListFragment.OnFragmentInteractionListener{
+public class ResterauntList extends ActionBarActivity  implements RestaurantsListFragment.OnFragmentInteractionListener, OnMapReadyCallback{
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
     private ArrayAdapter<String> mAdapter;
-
+    private MapFragment mFragment;
     private GoogleMap map;
 
     static final LatLng HAMBURG = new LatLng(53.558, 9.927);
@@ -47,13 +48,18 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         addDrawerItems();
         setupDrawer();
+
         mActivityTitle = "EatThis";
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+       // map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
-
+        mFragment = MapFragment.newInstance();
+        FragmentTransaction fragmentTransaction =
+                getFragmentManager().beginTransaction();
+        fragmentTransaction.add(mFragment, "Hello");
+        fragmentTransaction.commit();
 
         //Move the camera instantly to hamburg with a zoom of 15.
        // map.moveCamera(CameraUpdateFactory.newLatLngZoom(HAMBURG, 15));
@@ -61,7 +67,9 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
 // Zoom in, animating the camera.
         //map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
 
-
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
     }
 
@@ -165,4 +173,11 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
     public void onFragmentInteraction(String id) {
 
     }
+    public void onMapReady(GoogleMap map) {
+        map.addMarker(new MarkerOptions()
+                .position(new LatLng(0, 0))
+                .title("Marker"));
+    }
+
+
 }

@@ -11,12 +11,11 @@
         android:layout_height="match_parent" />
     <!-- The navigation drawer -->
 
-    <fragment
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="com.google.android.gms.maps.MapFragment"
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="com.google.android.gms.maps.MapFragment"
-        tools:layout="@layout/abc_action_bar_title_item" />
+        android:layout_height="match_parent"/>
 
     <ListView
     android:id="@+id/navList"
