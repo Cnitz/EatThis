@@ -16,6 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 
 public class ResterauntList extends ActionBarActivity  implements RestaurantsListFragment.OnFragmentInteractionListener{
     private ListView mDrawerList;
@@ -38,6 +41,12 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+
+            setContentView(R.layout.activity_map_fragment);
+            addMapFragment();
+
+        
 
     }
 
@@ -142,5 +151,15 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
     @Override
     public void onFragmentInteraction(String id) {
 
+    }
+
+   private void addMapFragment() {
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        MapFragment fragment = new MapFragment();
+        transaction.replace(R.id.fragment, fragment);
+
+
+        transaction.commit();
     }
 }
