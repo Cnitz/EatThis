@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import java.util.Date;
+import java.text.DateFormat;
+
 public class StatisticsInput extends ActionBarActivity {
 
     Button saveButton;
@@ -18,12 +21,14 @@ public class StatisticsInput extends ActionBarActivity {
     EditText menuItems;
     EditText summary;
     RatingBar rating;
+    ReviewDb rdb;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics_input);
+        rdb = new ReviewDb();
 
 
         saveButton = (Button)findViewById(R.id.SaveButton);
@@ -33,6 +38,7 @@ public class StatisticsInput extends ActionBarActivity {
         menuItems = (EditText)findViewById(R.id.MenuListInput);
         summary = (EditText)findViewById(R.id.SummaryInput);
         rating = (RatingBar)findViewById(R.id.RatingInput);
+
 
 
         cancelButton.setOnClickListener(
@@ -49,19 +55,32 @@ public class StatisticsInput extends ActionBarActivity {
         );
 
         saveButton.setOnClickListener(
-                new View.OnClickListener(){
+                new View.OnClickListener() {
                     @Override
-                    public void onClick(View v){
+                    public void onClick(View v) {
                         //TODO: Determine Required Fields
-                        if(isEmpty(restaurant))
-                            restaurant.getText();
+                        Review review = new Review();
 
-                        if(isEmpty(price))
-                            price.getText();
+                        if (!isEmpty(restaurant)) {
+                            review.setName(restaurant.getText().toString());
+                        }
 
-                        summary.getText();
-                        menuItems.getText();
-                        rating.getNumStars();
+                        if (!isEmpty(price))
+                            review.setPrice(Double.parseDouble(price.getText().toString()));
+
+                        review.setSummary(summary.getText().toString());
+                        review.setMenuItems(menuItems.getText().toString());
+                        review.setRating(rating.getNumStars());
+                        Date date = new Date();
+                        review.setDate(date.toString());
+                        rdb.InsertRestaurant(review);
+
+                        restaurant.setText("");
+                        price.setText("");
+                        menuItems.setText("");
+                        summary.setText("");
+                        rating.setNumStars(0);
+
 
                     }
                 }
@@ -94,9 +113,10 @@ public class StatisticsInput extends ActionBarActivity {
     }
 
     public static boolean isEmpty(EditText et){
-        return et.getText().toString().trim().length() != 0;
+        return et.getText().toString().trim().length() == 0;
 
     }
+
 
 
 }
