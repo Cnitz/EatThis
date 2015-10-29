@@ -65,17 +65,25 @@ public class StatisticsInput extends ActionBarActivity {
                         if (!isEmpty(restaurant))
                             review.setName(restaurant.getText().toString());
                         else
-                            review.setName("No-Name");
+                            Toast.makeText(StatisticsInput.this, "Name field must be populated.", Toast.LENGTH_SHORT).show();
 
-                        if (!isEmpty(price))
+                        if (Double.parseDouble(price.getText().toString()) < 0)
                             review.setPrice(Double.parseDouble(price.getText().toString()));
                         else
-                            review.setPrice(0.00);
+                            Toast.makeText(StatisticsInput.this, "Price must be greater than zero, we know you paid for it...", Toast.LENGTH_SHORT).show();
 
-                        review.setReviewId("1");
-                        review.setSummary(summary.getText().toString());
-                        review.setMenuItems(menuItems.getText().toString());
-                        review.setRating((int)rating.getRating());
+                        if (!isEmpty(summary))
+                            review.setSummary(summary.getText().toString());
+                        else
+                            review.setSummary("");
+
+                        if (!isEmpty(menuItems))
+                            review.setSummary(menuItems.getText().toString());
+                        else
+                            review.setSummary("");
+
+
+                        review.setRating((int) rating.getRating());
                         Date date = new Date();
                         review.setDate(date.toString());
 

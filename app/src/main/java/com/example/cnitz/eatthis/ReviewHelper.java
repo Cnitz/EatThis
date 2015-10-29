@@ -11,11 +11,11 @@ import com.example.cnitz.eatthis.TableData.TableInfo;
 /**
  * Created by Cnitz on 10/28/15.
  */
-public class ReviewHelper extends SQLiteOpenHelper{
+public class ReviewHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 3;
 
-    public String CREATE_QUERY = "CREATE TABLE "+ TableInfo.TABLE_NAME + "( "
+    public String CREATE_QUERY = "CREATE TABLE " + TableInfo.TABLE_NAME + "( "
             + TableInfo.COLUMN_NAME + " TEXT, "
             + TableInfo.COLUMN_PRICE + " REAL, "
             + TableInfo.COLUMN_MENU_ITEMS + " TEXT, "
@@ -60,4 +60,5 @@ public class ReviewHelper extends SQLiteOpenHelper{
 
         return k;
     }
+}
 
