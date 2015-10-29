@@ -5,6 +5,7 @@ package com.example.cnitz.eatthis;
  */
 public class Review {
 
+    public int id;
     public String reviewId;
     public String name;
     public double price;
@@ -14,6 +15,10 @@ public class Review {
     public String date;
 
     //Setters
+    public Review setId(int id){
+        this.id = id;
+        return this;
+    }
     public Review setReviewId(String reviewId){
         this.reviewId = reviewId;
         return this;
@@ -44,6 +49,7 @@ public class Review {
     }
 
     //Getters
+    public int getId() { return id; }
     public String getReviewId(){
         return reviewId;
     }

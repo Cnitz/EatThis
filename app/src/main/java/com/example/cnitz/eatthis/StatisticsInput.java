@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.content.Context;
+import android.widget.Toast;
 
 import java.util.Date;
-import java.text.DateFormat;
 
 public class StatisticsInput extends ActionBarActivity {
 
@@ -21,14 +22,14 @@ public class StatisticsInput extends ActionBarActivity {
     EditText menuItems;
     EditText summary;
     RatingBar rating;
-    ReviewDb rdb;
+    Context ctx = this;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics_input);
-        rdb = new ReviewDb();
 
 
         saveButton = (Button)findViewById(R.id.SaveButton);
@@ -49,7 +50,7 @@ public class StatisticsInput extends ActionBarActivity {
                         price.setText("");
                         menuItems.setText("");
                         summary.setText("");
-                        rating.setNumStars(0);
+                        rating.setRating(0);
                     }
                 }
         );
@@ -61,25 +62,34 @@ public class StatisticsInput extends ActionBarActivity {
                         //TODO: Determine Required Fields
                         Review review = new Review();
 
-                        if (!isEmpty(restaurant)) {
+                        if (!isEmpty(restaurant))
                             review.setName(restaurant.getText().toString());
-                        }
+                        else
+                            review.setName("No-Name");
 
                         if (!isEmpty(price))
                             review.setPrice(Double.parseDouble(price.getText().toString()));
+                        else
+                            review.setPrice(0.00);
 
+                        review.setReviewId("1");
                         review.setSummary(summary.getText().toString());
                         review.setMenuItems(menuItems.getText().toString());
-                        review.setRating(rating.getNumStars());
+                        review.setRating((int)rating.getRating());
                         Date date = new Date();
                         review.setDate(date.toString());
-                        rdb.InsertRestaurant(review);
+
+                        ReviewHelper rdb = new ReviewHelper(ctx);
+                        rdb.addReview(rdb, review);
+
 
                         restaurant.setText("");
                         price.setText("");
                         menuItems.setText("");
                         summary.setText("");
-                        rating.setNumStars(0);
+                        rating.setRating(0);
+
+                        Toast.makeText(StatisticsInput.this, "Added to DataBase, Bitches!", Toast.LENGTH_SHORT).show();
 
 
                     }
