@@ -44,23 +44,17 @@ public class MapFragment extends Fragment {
 
         googleMap = mMapView.getMap();
         // latitude and longitude
-        double latitude = 17.385044;
-        double longitude = 78.486671;
 
-        // create marker
-        MarkerOptions marker = new MarkerOptions().position(
-                new LatLng(latitude, longitude)).title("Hello Maps");
-
-        // Changing marker icon
-        marker.icon(BitmapDescriptorFactory
-                .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-
+       //addMarker(40.434039999999996, -86.9250555, "ZBT");
+        //addMarker(40.4347281, -86.9264017, "Alpha Chi Omega");
+        addMarker(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude(), "CURRENT LOCATION");
         // adding marker
-        googleMap.addMarker(marker);
+        googleMap.setMyLocationEnabled(true);
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(17.385044, 78.486671)).zoom(12).build();
+                .target(new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude())).zoom(12).build();
         googleMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
+
 
         // Perform any camera updates here
         return v;
@@ -88,5 +82,11 @@ public class MapFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+    public void addMarker(double latitude, double longitude, String name){
+        MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title(name);
+        marker.icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+        googleMap.addMarker(marker);
     }
 }

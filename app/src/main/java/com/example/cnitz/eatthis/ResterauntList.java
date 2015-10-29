@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 
 public class ResterauntList extends ActionBarActivity  implements RestaurantsListFragment.OnFragmentInteractionListener{
@@ -38,17 +40,21 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         setupDrawer();
 
         mActivityTitle = "EatThis";
+        setContentView(R.layout.activity_map_fragment);
+        addMapFragment();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
 
-            setContentView(R.layout.activity_map_fragment);
-            addMapFragment();
+
 
         
 
     }
+
+
+
 
     private void addDrawerItems() {
         String[] drawerStrings = { "Restaurant List", "Schedule", "Map ", "Statistics", "Preferences" };
@@ -157,7 +163,7 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         MapFragment fragment = new MapFragment();
-        transaction.replace(R.id.mapView, fragment);
+        transaction.add(R.id.mapView, fragment);
 
 
         transaction.commit();
