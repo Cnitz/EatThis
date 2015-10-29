@@ -36,7 +36,7 @@ public final class RestaurantDb  {
 		RestaurantEntry.COLUMN_FOOD_TYPE + " INTEGER," +
 		RestaurantEntry.COLUMN_RATING + " REAL," +
 		RestaurantEntry.COLUMN_PRICE_LEVEL + " INTEGER" +
-		" )";
+			" )";
 
 	private static final String SQL_DELETE_ENTRIES =
 		"DROP TABLE IF EXISTS " + RestaurantEntry.TABLE_NAME;
