@@ -1,5 +1,9 @@
 package com.example.cnitz.eatthis;
 
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import android.app.Fragment;
@@ -42,16 +46,22 @@ public class MapFragment extends Fragment {
             e.printStackTrace();
         }
 
+
+
+
+
+
+
         googleMap = mMapView.getMap();
         // latitude and longitude
-
+        googleMap.setMyLocationEnabled(true);
        //addMarker(40.434039999999996, -86.9250555, "ZBT");
         //addMarker(40.4347281, -86.9264017, "Alpha Chi Omega");
-        addMarker(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude(), "CURRENT LOCATION");
+        addMarker(40.4287175, -86.9139992, "CURRENT LOCATION");
         // adding marker
-        googleMap.setMyLocationEnabled(true);
+
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude())).zoom(12).build();
+                .target(new LatLng(40.4287175, -86.9139992)).zoom(20).build();
         googleMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
 
@@ -59,6 +69,8 @@ public class MapFragment extends Fragment {
         // Perform any camera updates here
         return v;
     }
+
+
 
     @Override
     public void onResume() {
@@ -89,4 +101,6 @@ public class MapFragment extends Fragment {
                 .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
         googleMap.addMarker(marker);
     }
+
+
 }
