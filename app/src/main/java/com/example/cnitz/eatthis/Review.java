@@ -72,7 +72,7 @@ public class Review {
         return date;
     }
 
-
+    public String toString() { return name; }
 
 
 }

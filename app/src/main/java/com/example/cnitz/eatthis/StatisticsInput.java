@@ -1,5 +1,6 @@
 package com.example.cnitz.eatthis;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -51,6 +52,8 @@ public class StatisticsInput extends ActionBarActivity {
                         menuItems.setText("");
                         summary.setText("");
                         rating.setRating(0);
+                        Intent goToInput = new Intent(StatisticsInput.this, ReviewAndStatsMenu.class);
+                        StatisticsInput.this.startActivity(goToInput);
                     }
                 }
         );
@@ -64,13 +67,21 @@ public class StatisticsInput extends ActionBarActivity {
 
                         if (!isEmpty(restaurant))
                             review.setName(restaurant.getText().toString());
-                        else
+                        else {
                             Toast.makeText(StatisticsInput.this, "Name field must be populated.", Toast.LENGTH_SHORT).show();
-
-                        if (Double.parseDouble(price.getText().toString()) < 0)
-                            review.setPrice(Double.parseDouble(price.getText().toString()));
-                        else
+                            return;
+                        }
+                        if(isEmpty(price)){
                             Toast.makeText(StatisticsInput.this, "Price must be greater than zero, we know you paid for it...", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (Double.parseDouble(price.getText().toString()) > 0)
+                            review.setPrice(Double.parseDouble(price.getText().toString()));
+                        else{
+                            Toast.makeText(StatisticsInput.this, "Price must be greater than zero, we know you paid for it...", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         if (!isEmpty(summary))
                             review.setSummary(summary.getText().toString());
@@ -81,7 +92,6 @@ public class StatisticsInput extends ActionBarActivity {
                             review.setSummary(menuItems.getText().toString());
                         else
                             review.setSummary("");
-
 
                         review.setRating((int) rating.getRating());
                         Date date = new Date();
@@ -97,8 +107,9 @@ public class StatisticsInput extends ActionBarActivity {
                         summary.setText("");
                         rating.setRating(0);
 
-                        Toast.makeText(StatisticsInput.this, "Added to DataBase, Bitches!", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(StatisticsInput.this, "Added to DataBase", Toast.LENGTH_SHORT).show();
+                        Intent goToInput = new Intent(StatisticsInput.this, ReviewAndStatsMenu.class);
+                        StatisticsInput.this.startActivity(goToInput);
 
                     }
                 }

@@ -2,11 +2,17 @@ package com.example.cnitz.eatthis;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.cnitz.eatthis.TableData.TableInfo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Cnitz on 10/28/15.
@@ -59,6 +65,39 @@ public class ReviewHelper extends SQLiteOpenHelper {
         long k = db.insert(TableInfo.TABLE_NAME, null, cv);
 
         return k;
+    }
+
+    public String GET_ALL_QUERY = "SELECT * FROM " + TableInfo.TABLE_NAME;
+
+    public List<Review> getAllReviews(ReviewHelper rh){
+        SQLiteDatabase db = rh.getReadableDatabase();
+        List<Review> rl = new ArrayList<Review>();
+        Cursor c = db.rawQuery(GET_ALL_QUERY, null);
+
+        if(c.moveToFirst()){
+
+            while(c.isAfterLast() == false){
+                Review review = getReviewFromCursor(c);
+
+                rl.add(review);
+                c.moveToNext();
+            }
+        }
+        return rl;
+
+    }
+
+    @NonNull
+    private Review getReviewFromCursor(Cursor c) {
+        Review review = new Review();
+        review.setId(c.getInt(c.getColumnIndex("id")));
+        review.setName(c.getString(c.getColumnIndex(TableInfo.COLUMN_NAME)));
+        review.setPrice(c.getDouble(c.getColumnIndex(TableInfo.COLUMN_PRICE)));
+        review.setMenuItems(c.getString(c.getColumnIndex(TableInfo.COLUMN_MENU_ITEMS)));
+        review.setSummary(c.getString(c.getColumnIndex(TableInfo.COLUMN_SUMMARY)));
+        review.setRating(c.getInt(c.getColumnIndex(TableInfo.COLUMN_RATING)));
+        review.setDate(c.getString(c.getColumnIndex(TableInfo.COLUMN_DATE)));
+        return review;
     }
 }
 

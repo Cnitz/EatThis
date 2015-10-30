@@ -20,14 +20,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rating Range"
-        android:id="@+id/button3"
+        android:id="@+id/ReviewList"
         android:layout_gravity="right|top" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price Range"
-        android:id="@+id/button2"
+        android:id="@+id/NewReview"
         android:layout_gravity="center_horizontal|top" />
 
 
