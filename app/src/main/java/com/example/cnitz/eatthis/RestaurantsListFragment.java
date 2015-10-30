@@ -2,6 +2,7 @@ package com.example.cnitz.eatthis;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -12,8 +13,14 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
+<<<<<<< HEAD
+
+import android.widget.ListView;
+=======
+>>>>>>> parent of 7b25cf4... working on list, view about to merge
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.util.Log;
@@ -32,7 +39,19 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
+//TODO: add all the food types
 public class RestaurantsListFragment extends Fragment implements AbsListView.OnItemClickListener, View.OnClickListener {
+    public enum FoodTypes {
+        ASIAN(0),
+        PIZZA(1),
+        MEXICAN(2);
+        private final int number;
+
+        FoodTypes(int number) {
+            this.number = number;
+        }
+    }
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,7 +86,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private ArrayAdapter<ETPlace> mAdapter;
     private RestaurantDb rDB;
 
     // TODO: Rename and change types of parameters
@@ -100,6 +119,9 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         rDB = new RestaurantDb(getActivity().getApplicationContext());
         rDB.CreateExampleData();
         restList = rDB.GetAllRestaurants();
+
+        //System.out.println(restList.get(0).getName());
+
 //        restList = new ArrayList<>();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -120,12 +142,18 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
         Button b = (Button) view.findViewById(R.id.button);
         b.setOnClickListener(this);
+        Button c = (Button) view.findViewById(R.id.button2);
+        c.setOnClickListener(this);
+        Button d = (Button) view.findViewById(R.id.button3);
+        d.setOnClickListener(this);
+        Button e = (Button) view.findViewById(R.id.button4);
+        e.setOnClickListener(this);
 
 
         return view;
@@ -140,6 +168,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
     }
 
     public void createFoodtype() {
+        //create dialog to choose each food types to see. More lists should be added in enum FoodTypes.
         final CharSequence[] foodtypes = {"Asian", "Pizza", "Mexican"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -148,8 +177,20 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         builder.setItems(foodtypes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                System.out.println(foodtypes[which]);
-               // mListView.setAdapter();
+                //System.out.println(foodtypes[which]);
+                //get the restaurants by food types from the restList, and refresh it
+                // mListView.setAdapter();
+                String type = (String) foodtypes[which];
+                int numberOfFoodTypes = FoodTypes.valueOf(type.toUpperCase()).number;
+                //System.out.println(numberOfFoodTypes);
+                restList.clear();
+                restList = rDB.GetRestaurants(numberOfFoodTypes, null, null);
+                System.out.println("Size" + restList.size());
+                mAdapter.clear();
+                mAdapter.addAll(restList);
+                mAdapter.notifyDataSetChanged();
+                //((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
+                System.out.println(numberOfFoodTypes);
                 dialog.dismiss();
             }
         });
@@ -166,7 +207,8 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
     }
 
     public void createRatingRange() {
-        final CharSequence[] ratingRange = {};
+        //create rating dialog, and choose between the numbers of database according to rating.
+        final CharSequence[] ratingRange = {"0~1", "1~2", "2~3", "3~4", "4~5"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -174,6 +216,40 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         builder.setItems(ratingRange, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String type = (String) ratingRange[which];
+                if (type.equals("0~1")) {
+                    restList.clear();
+                    restList = rDB.GetRestaurants(null, null, null);
+                    mAdapter.clear();
+                    mAdapter.addAll(restList);
+                    mAdapter.notifyDataSetChanged();
+                } else if (type.equals("1~2")) {
+                    restList.clear();
+                    restList = rDB.GetRestaurants(null, null, null);
+                    mAdapter.clear();
+                    mAdapter.addAll(restList);
+                    mAdapter.notifyDataSetChanged();
+                } else if (type.equals("2~3")) {
+                    restList.clear();
+                    restList = rDB.GetRestaurants(null, null, null);
+                    mAdapter.clear();
+                    mAdapter.addAll(restList);
+                    mAdapter.notifyDataSetChanged();
+                } else if (type.equals("3~4")) {
+                    restList.clear();
+                    restList = rDB.GetRestaurants(null, null, null);
+                    mAdapter.clear();
+                    mAdapter.addAll(restList);
+                    mAdapter.notifyDataSetChanged();
+                } else if (type.equals("4~5")) {
+                    restList.clear();
+                    restList = rDB.GetRestaurants(null, null, null);
+                    mAdapter.clear();
+                    mAdapter.addAll(restList);
+                    mAdapter.notifyDataSetChanged();
+                }
+
+
                 System.out.println(ratingRange[which]);
                 dialog.dismiss();
             }
@@ -192,7 +268,8 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
     }
 
     public void createPriceRange() {
-        final CharSequence[] priceRange = {};
+    //create the button dialog for price range, and pick according to the database.
+        final CharSequence[] priceRange = {"$", "$$", "$$$"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Price Range");
@@ -200,6 +277,17 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 System.out.println(priceRange[which]);
+                String type = (String) priceRange[which];
+                if (type.equals("$")) {
+                    restList.clear();
+                    restList = rDB.GetRestaurants(null, null, null);
+                } else if (type.equals("$$")) {
+                    restList.clear();
+                    restList = rDB.GetRestaurants(null, null, null);
+                } else if (type.equals("$$$")) {
+                    restList.clear();
+                    restList = rDB.GetRestaurants(null, null, null);
+                }
                 dialog.dismiss();
             }
         });
@@ -254,6 +342,10 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         }
     }
 
+    public void chooseForMe() {
+        //connect to greg's matching algorithm.
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -261,10 +353,17 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
                 createFoodtype();
                 break;
             case R.id.button2:
+<<<<<<< HEAD
+                System.out.println("at button 2");
+=======
+>>>>>>> parent of 7b25cf4... working on list, view about to merge
                 createPriceRange();
                 break;
             case R.id.button3:
                 createRatingRange();
+                break;
+            case R.id.button4:
+                chooseForMe();
                 break;
         }
     }
@@ -281,7 +380,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        void onFragmentInteraction(String id);
     }
 
 }

@@ -104,5 +104,8 @@ public class ETPlace extends Place {
         return price;
     }
 
-
+	@Override
+	public String toString() {
+		return name;
+	}
 }
