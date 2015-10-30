@@ -17,9 +17,12 @@ public class ETPlace extends Place {
 
 	// Added functionality
 
-	public Integer foodType;
+	public void ETplace() { placeId = "2"; }
+	public void Place() { }
 
-	public Integer getFoodType() {
+	private int foodType;
+
+	public int getFoodType() {
 		return foodType;
 	}
 
@@ -29,13 +32,13 @@ public class ETPlace extends Place {
 	}
 
 	// Override because of protected keyword
-	public double lat;
-	public double lng;
-	public String name;
-	public String addr;
-	public String placeId;
-	public double rating;
-	public Price price;
+	private double lat;
+	private double lng;
+	private String name;
+	private String addr;
+	private String placeId;
+	private double rating;
+	private Price price;
 
 
 	public Place setLatitude(double lat) {
@@ -58,8 +61,8 @@ public class ETPlace extends Place {
 	    return this;
 	}
 
-	public Place setPlaceId(String placeId) {
-	    this.placeId = placeId;
+	public Place setPlaceId(String placeIds) {
+	    this.placeId = placeIds;
 	    return this;
 	}
 
@@ -73,5 +76,36 @@ public class ETPlace extends Place {
 	    return this;
 	}
 
-	
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return addr;
+    }
+
+    public double getLatitude() {
+        return lat;
+    }
+
+    public double getLongitude() {
+        return lng;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }
