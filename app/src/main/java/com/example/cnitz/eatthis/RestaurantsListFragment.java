@@ -16,7 +16,11 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
+<<<<<<< HEAD
+
 import android.widget.ListView;
+=======
+>>>>>>> parent of 7b25cf4... working on list, view about to merge
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.util.Log;
@@ -349,7 +353,10 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
                 createFoodtype();
                 break;
             case R.id.button2:
+<<<<<<< HEAD
                 System.out.println("at button 2");
+=======
+>>>>>>> parent of 7b25cf4... working on list, view about to merge
                 createPriceRange();
                 break;
             case R.id.button3:
