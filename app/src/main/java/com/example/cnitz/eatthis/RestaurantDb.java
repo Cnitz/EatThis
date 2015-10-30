@@ -172,7 +172,13 @@ public final class RestaurantDb  {
         );
         Log.d("Testing Info", "row count: " + cursor.getCount());
 
+		if (cursor.getCount() == 0) {
+            return null;
+		}
+
+
 		cursor.moveToFirst();
+
 
 		do {
 			place = new ETPlace();
