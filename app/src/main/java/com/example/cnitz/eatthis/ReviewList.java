@@ -35,7 +35,7 @@ public class ReviewList extends ActionBarActivity implements ReviewDisplay.OnFra
         listView = (ListView) this.findViewById(R.id.ReviewList);
 
 
-        ArrayAdapter<Review> adapter = new ArrayAdapter<Review>(ReviewList.this, R.layout.simple_list_item_1, reviewList);
+        ArrayAdapter<Review> adapter = new ArrayAdapter<Review>(ReviewList.this, R.layout.abc_list_menu_item_layout, reviewList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(

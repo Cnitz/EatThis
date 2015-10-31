@@ -65,23 +65,12 @@ public class StatisticsInput extends ActionBarActivity {
                         //TODO: Determine Required Fields
                         Review review = new Review();
 
-                        if (!isEmpty(restaurant))
-                            review.setName(restaurant.getText().toString());
-                        else {
-                            Toast.makeText(StatisticsInput.this, "Name field must be populated.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        if(isEmpty(price)){
-                            Toast.makeText(StatisticsInput.this, "Price must be greater than zero, we know you paid for it...", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
 
-                        if (Double.parseDouble(price.getText().toString()) > 0)
+                            review.setName(restaurant.getText().toString());
+
+
+
                             review.setPrice(Double.parseDouble(price.getText().toString()));
-                        else{
-                            Toast.makeText(StatisticsInput.this, "Price must be greater than zero, we know you paid for it...", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
 
                         if (!isEmpty(summary))
                             review.setSummary(summary.getText().toString());
@@ -97,6 +86,7 @@ public class StatisticsInput extends ActionBarActivity {
                         Date date = new Date();
                         review.setDate(date.toString());
 
+
                         ReviewHelper rdb = new ReviewHelper(ctx);
                         rdb.addReview(rdb, review);
 
@@ -106,6 +96,7 @@ public class StatisticsInput extends ActionBarActivity {
                         menuItems.setText("");
                         summary.setText("");
                         rating.setRating(0);
+
 
                         Toast.makeText(StatisticsInput.this, "Added to DataBase", Toast.LENGTH_SHORT).show();
                         Intent goToInput = new Intent(StatisticsInput.this, ReviewAndStatsMenu.class);

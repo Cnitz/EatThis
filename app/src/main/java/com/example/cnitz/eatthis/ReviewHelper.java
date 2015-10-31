@@ -90,6 +90,7 @@ public class ReviewHelper extends SQLiteOpenHelper {
     @NonNull
     private Review getReviewFromCursor(Cursor c) {
         Review review = new Review();
+        review.setId(1);
         review.setName(c.getString(c.getColumnIndex(TableInfo.COLUMN_NAME)));
         review.setPrice(c.getDouble(c.getColumnIndex(TableInfo.COLUMN_PRICE)));
         review.setMenuItems(c.getString(c.getColumnIndex(TableInfo.COLUMN_MENU_ITEMS)));

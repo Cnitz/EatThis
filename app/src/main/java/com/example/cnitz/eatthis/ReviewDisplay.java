@@ -72,10 +72,10 @@ public class ReviewDisplay extends Fragment {
         date = (TextView) view.findViewById(R.id.dateDisp);
 
         name.setText(review.getName());
-        price.setText(Double.toString(review.getPrice()));
+        price.setText((int)review.getPrice());
         menuitems.setText(review.getMenuItems());
         summary.setText(review.getSummary());
-        rating.setText(Integer.toString(review.getRating()));
+        rating.setText(review.getRating());
         date.setText(review.getDate());
 
         return view;

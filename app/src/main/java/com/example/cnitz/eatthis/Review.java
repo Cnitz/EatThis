@@ -73,7 +73,7 @@ public class Review {
     }
 
     @Override
-    public String toString() { return name + "\n" + date + "\n"; }
+    public String toString() { return name + "\n"; }
 
 
 }
