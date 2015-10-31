@@ -24,12 +24,21 @@
         <activity
             android:name=".ResterauntList"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ReviewList"
+            android:label="ReviewList" >
+
+        </activity>
+        <activity
+            android:name=".ReviewAndStatsMenu"
+            android:label="@string/title_activity_review_and_stats_menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -38,6 +47,13 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAVp2XtuMKNmMj_bzZsJUVriduyU9p8lSo"/>
+
+        <activity
+            android:name=".StatisticsInput"
+            android:label="@string/title_activity_statistics_input" >
+
+        </activity>
+
 
     </application>
 
