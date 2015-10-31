@@ -87,7 +87,8 @@ public class ResterauntList extends Activity implements RestaurantsListFragment.
     }
 
     @Override
-    public void onFragmentInteraction(String id) {
-
+    public void onFragmentInteraction(double longitude, double latitude) {
+        //call fragment with those long and lat.
+        System.out.println(longitude + " " + latitude);
     }
 }

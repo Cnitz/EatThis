@@ -181,9 +181,8 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
                 //System.out.println(numberOfFoodTypes);
                 restList.clear();
                 restList = rDB.GetRestaurants(numberOfFoodTypes, null, null);
-                System.out.println("Size" + restList.size());
+                //System.out.println("Size" + restList.size());
                 mAdapter.clear();
-                mAdapter.addAll(restList);
                 mAdapter.notifyDataSetChanged();
                 //((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
                 System.out.println(numberOfFoodTypes);
@@ -321,8 +320,13 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            //mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            ETPlace place = (ETPlace) parent.getItemAtPosition(position);
+            mListener.onFragmentInteraction(place.getLongitude(), place.getLatitude());
         }
+
+
+
     }
 
     /**
@@ -373,7 +377,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(String id);
+        void onFragmentInteraction(double longitude, double latitue);
     }
 
 }
