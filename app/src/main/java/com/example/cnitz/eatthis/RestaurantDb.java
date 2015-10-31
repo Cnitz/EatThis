@@ -177,38 +177,38 @@ public final class RestaurantDb  {
 			place = new ETPlace();
 
 			place.setPlaceId(
-					cursor.getString(
-							cursor.getColumnIndexOrThrow(
-									RestaurantEntry.COLUMN_RESTAURANT_UNIQUE)));
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow(
+                                    RestaurantEntry.COLUMN_RESTAURANT_UNIQUE)));
 			place.setName(
-				cursor.getString(
-					cursor.getColumnIndexOrThrow(
-						RestaurantEntry.COLUMN_NAME)));
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow(
+                                    RestaurantEntry.COLUMN_NAME)));
 			place.setAddress(
-				cursor.getString(
-					cursor.getColumnIndexOrThrow(
-						RestaurantEntry.COLUMN_ADDRESS)));
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow(
+                                    RestaurantEntry.COLUMN_ADDRESS)));
 			place.setLatitude(
-				cursor.getDouble(
-					cursor.getColumnIndexOrThrow(
-						RestaurantEntry.COLUMN_LAT)));
+                    cursor.getDouble(
+                            cursor.getColumnIndexOrThrow(
+                                    RestaurantEntry.COLUMN_LAT)));
 			place.setLongitude(
-				cursor.getDouble(
-					cursor.getColumnIndexOrThrow(
-						RestaurantEntry.COLUMN_LONG)));
+                    cursor.getDouble(
+                            cursor.getColumnIndexOrThrow(
+                                    RestaurantEntry.COLUMN_LONG)));
 			place.setRating(
-				cursor.getDouble(
-					cursor.getColumnIndexOrThrow(
-						RestaurantEntry.COLUMN_RATING)));
+                    cursor.getDouble(
+                            cursor.getColumnIndexOrThrow(
+                                    RestaurantEntry.COLUMN_RATING)));
 			place.setFoodType(
-				cursor.getInt(
-					cursor.getColumnIndexOrThrow(
-						RestaurantEntry.COLUMN_FOOD_TYPE)));
+                    cursor.getInt(
+                            cursor.getColumnIndexOrThrow(
+                                    RestaurantEntry.COLUMN_FOOD_TYPE)));
 			place.setPrice(
 				Price.values()[
 					cursor.getInt(
-						cursor.getColumnIndexOrThrow(
-							RestaurantEntry.COLUMN_PRICE_LEVEL))]);
+                            cursor.getColumnIndexOrThrow(
+                                    RestaurantEntry.COLUMN_PRICE_LEVEL))]);
 			restaurants.add(place);
 
 		} while(cursor.moveToNext()); 
@@ -240,16 +240,77 @@ public final class RestaurantDb  {
 
 		ETPlace place;
 		int i;
+        String[] restNames = new String[10];
+        Double[] lats = new Double[10];
+        Double[] longs = new Double[10];
+        int[] foodtypes = new int[10];
+
+
+
+
+        restNames[0] = "Qdoba Mexican Grill";
+        lats[0] = 40.425529;
+        longs[0] = -86.908164;
+        foodtypes[0] = 2;
+
+        restNames[1] = "Fiesta Mexican Grill";
+        lats[1] = 40.425089;
+        longs[1] = -86.906689;
+        foodtypes[1] = 2;
+
+        restNames[2] = "Chipotle Mexican Grill";
+        lats[2] = 40.424332;
+        longs[2] = -86.907106;
+        foodtypes[2] = 2;
+
+        restNames[3] = "Taco Bell";
+        lats[3] = 40.423624;
+        longs[3] = -86.907523;
+        foodtypes[3] = 2;
+
+        restNames[4] = "Rice Cafe";
+        lats[4] = 40.423312;
+        longs[4] = -86.908981;
+        foodtypes[4] = 0;
+
+        restNames[5] = "Ahz";
+        lats[5] = 40.423225;
+        longs[5] = -86.908181;
+        foodtypes[5] = 0;
+
+        restNames[6] = "Maru Sushi";
+        lats[6] = 40.424506;
+        longs[6] = -86.907115;
+        foodtypes[6] = 0;
+
+        restNames[7] = "Khana Khazana Indian Grill";
+        lats[7] = 40.424506;
+        longs[7] = -86.907834;
+        foodtypes[7] = 0;
+
+        restNames[8] = "Mad Mushroom Pizza";
+        lats[8] = 40.424751;
+        longs[8] = -86.908975;
+        foodtypes[8] = 1;
+
+        restNames[9] = "HotBox Pizza";
+        lats[9] = 40.423979;
+        longs[9] = -86.908083;
+        foodtypes[9] = 1;
+
+
+
+
 		for(i = 0; i < 10; i++) {
 			place = new ETPlace();
 			place.setPlaceId("12345" + i);
-			place.setName("restaurant " + i);
+			place.setName(restNames[i]);
 			place.setAddress(i + "23 Main St, Lafayette, IN 47904");
 			// 40.425408, -86.919722
-			place.setLatitude(40.425404 + (i / 1000));
-			place.setLongitude(-86.919722 + (i / 1000));
+			place.setLatitude(lats[i]);
+			place.setLongitude(longs[i]);
 			place.setRating((i * .1) + 3.0);
-			place.setFoodType(i);
+			place.setFoodType(foodtypes[i]);
             if(i % 2 == 0) place.setPrice(Price.valueOf("FREE"));
             else place.setPrice(Price.valueOf("INEXPENSIVE"));
 

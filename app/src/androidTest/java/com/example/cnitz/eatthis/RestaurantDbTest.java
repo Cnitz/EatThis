@@ -101,7 +101,7 @@ public final class RestaurantDbTest extends AndroidTestCase  {
         rDB.CreateExampleData();
 
         List<ETPlace> places = rDB.GetRestaurants(1, null, null);
-        assertEquals(1, places.size());
+        assertEquals(2, places.size());
         assertEquals(places.get(0).getFoodType(), 1);
 
         places = rDB.GetRestaurants(null, 3.0, null);
