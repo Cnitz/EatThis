@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import se.walkercrou.places.Price;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -277,13 +279,22 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
                 String type = (String) priceRange[which];
                 if (type.equals("$")) {
                     restList.clear();
-                    restList = rDB.GetRestaurants(null, null, null);
+                    restList = rDB.GetRestaurants(null, null, String.valueOf(Price.valueOf("FREE")));
+                    mAdapter.clear();
+                    mAdapter.addAll(restList);
+                    mAdapter.notifyDataSetChanged();
                 } else if (type.equals("$$")) {
                     restList.clear();
-                    restList = rDB.GetRestaurants(null, null, null);
+                    restList = rDB.GetRestaurants(null, null, String.valueOf(Price.valueOf("INEXPENSIVE")));
+                    mAdapter.clear();
+                    mAdapter.addAll(restList);
+                    mAdapter.notifyDataSetChanged();
                 } else if (type.equals("$$$")) {
                     restList.clear();
-                    restList = rDB.GetRestaurants(null, null, null);
+                    restList = rDB.GetRestaurants(null, null, String.valueOf(Price.valueOf("MODERATE")));
+                    mAdapter.clear();
+                    mAdapter.addAll(restList);
+                    mAdapter.notifyDataSetChanged();
                 }
                 dialog.dismiss();
             }
@@ -322,7 +333,8 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            ETPlace place = (ETPlace) parent.getItemAtPosition(position);
+            mListener.onFragmentInteraction(place.getLongitude(), place.getLatitude(), place.getName());
         }
     }
 
@@ -415,7 +427,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(String id);
+        void onFragmentInteraction(double longitude, double latitude, String name);
     }
 
 }

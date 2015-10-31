@@ -169,8 +169,21 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
     }
 
     @Override
-    public void onFragmentInteraction(String id) {
+    public void onFragmentInteraction(double longitude, double latitude, String name) {
+        MapFragment fragment = new MapFragment();
+        Bundle args = new Bundle();
+        args.putDouble("longitude", longitude);
+        args.putDouble("latitude", latitude);
+        args.putString("name", name);
+        fragment.setArguments(args);
 
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.content_frame, fragment);
+        transaction.addToBackStack(null);
+
+
+        transaction.commit();
     }
 
    private void addMapFragment() {

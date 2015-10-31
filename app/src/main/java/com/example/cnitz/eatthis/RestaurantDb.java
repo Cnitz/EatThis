@@ -313,7 +313,9 @@ public final class RestaurantDb  {
 			place.setFoodType(foodtypes[i]);
             if(i % 2 == 0) place.setPrice(Price.valueOf("FREE"));
             else place.setPrice(Price.valueOf("INEXPENSIVE"));
-
+			if(i == 9){
+				place.setPrice(Price.valueOf("MODERATE"));
+			}
 			InsertRestaurant(place);
 		}
 	}

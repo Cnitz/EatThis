@@ -28,6 +28,9 @@ public class MapFragment extends Fragment {
 
     MapView mMapView;
     private GoogleMap googleMap;
+    double longitude;
+    double latitude;
+    private String name;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,15 +58,27 @@ public class MapFragment extends Fragment {
         googleMap = mMapView.getMap();
         // latitude and longitude
         googleMap.setMyLocationEnabled(true);
+        if(getArguments() != null){
+            longitude = getArguments().getDouble("longitude");
+            latitude = getArguments().getDouble("latitude");
+            name = getArguments().getString("name");
+            addMarker(latitude,longitude,name);
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(latitude, longitude)).zoom(20).build();
+            googleMap.animateCamera(CameraUpdateFactory
+                    .newCameraPosition(cameraPosition));
+        }
+        else{
+            addMarker(40.4287175, -86.9139992, "CURRENT LOCATION");
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(40.4287175, -86.9139992)).zoom(20).build();
+            googleMap.animateCamera(CameraUpdateFactory
+                    .newCameraPosition(cameraPosition));
+
+        }
        //addMarker(40.434039999999996, -86.9250555, "ZBT");
         //addMarker(40.4347281, -86.9264017, "Alpha Chi Omega");
-        addMarker(40.4287175, -86.9139992, "CURRENT LOCATION");
         // adding marker
-
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(40.4287175, -86.9139992)).zoom(20).build();
-        googleMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(cameraPosition));
 
 
         // Perform any camera updates here
