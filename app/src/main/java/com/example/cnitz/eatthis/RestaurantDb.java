@@ -142,7 +142,7 @@ public final class RestaurantDb  {
 			selection = selection + RestaurantEntry.COLUMN_RATING + "=" + rating.toString();
 		}
 		if(price != null) {
-			if(selections > 0) selection = selection + " AND ";
+			if(selections > 0) selection = selection + " OR ";	//Reconsider
 			selection = selection + RestaurantEntry.COLUMN_PRICE_LEVEL + "=" + Price.valueOf(price).ordinal();
 
 		}

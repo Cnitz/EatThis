@@ -64,14 +64,14 @@ public class MapFragment extends Fragment {
             name = getArguments().getString("name");
             addMarker(latitude,longitude,name);
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(latitude, longitude)).zoom(20).build();
+                    .target(new LatLng(latitude, longitude)).zoom(0).build();
             googleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
         }
         else{
             addMarker(40.4287175, -86.9139992, "CURRENT LOCATION");
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(40.4287175, -86.9139992)).zoom(20).build();
+                    .target(new LatLng(40.4287175, -86.9139992)).zoom(0).build();
             googleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
 

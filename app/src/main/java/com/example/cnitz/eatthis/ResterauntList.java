@@ -47,13 +47,6 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        MapFragment fragment = new MapFragment();
-        transaction.replace(R.id.content_frame, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
 
         
 
@@ -87,14 +80,15 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
                         finish();
                         break;
                     case 2:
-                        //Map
-                        text = "You clicked on option 2";
-                        addMapFragment();
-                        break;
-                    case 3:
                         //Statistics
+                        text = "You clicked on option 2";
                         Intent cnitzIntent = new Intent(view.getContext(),ReviewAndStatsMenu.class);
                         startActivity(cnitzIntent);
+                        break;
+                    case 3:
+                        //Map
+
+                        addMapFragment();
                         break;
                     case 4:
                         //Preference
@@ -182,9 +176,9 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         transaction.replace(R.id.content_frame, fragment);
         transaction.addToBackStack(null);
 
-
         transaction.commit();
     }
+
 
    private void addMapFragment() {
         FragmentManager manager = getFragmentManager();

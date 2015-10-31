@@ -117,7 +117,7 @@ public class SchedHelper extends SQLiteOpenHelper {
         Cursor cursor;
         String select = "SELECT * FROM "+TableInfo.TABLE_NAME+" WHERE ";
 
-        if(day == Calendar.TUESDAY){
+       /* if(day == Calendar.TUESDAY){
 
             select = select+TableInfo.COLUMN_TUESDAY+" = '1'";
         }
@@ -129,10 +129,10 @@ public class SchedHelper extends SQLiteOpenHelper {
         }
         else if(day == Calendar.FRIDAY){
             select = select+TableInfo.COLUMN_FRIDAY+" = '1'";
-        }
-        else {
+        }*/
+        //else {
             select = select+TableInfo.COLUMN_MONDAY+" = '1'";
-        }
+        //}
 
         cursor = db.rawQuery(select,null);
         cursor.moveToFirst();
@@ -167,7 +167,6 @@ public class SchedHelper extends SQLiteOpenHelper {
             }
 
             cursor.moveToFirst();
-            if(counter>0)cursor.move(counter-1);
             sclass.setName(cursor.getString(cursor.getColumnIndexOrThrow(TableInfo.COLUMN_NAME)));
             sclass.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TableInfo.COLUMN_STARTTIME)));
             sclass.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TableInfo.COLUMN_ENDTIME)));

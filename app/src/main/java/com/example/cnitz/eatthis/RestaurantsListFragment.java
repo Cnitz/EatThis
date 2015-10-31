@@ -358,11 +358,7 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
         List<ETPlace> list = new ArrayList<ETPlace>();
         list = rDB.GetAllRestaurants();
         int index = 0;
-        if(sclass == null){
-            mAdapter.clear();
-            mAdapter.notifyDataSetChanged();
-            return;
-        }
+
         switch(sclass.getLocation()){
             case "Lawson": index = 0;
                 break;
