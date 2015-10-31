@@ -180,9 +180,13 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
                 int numberOfFoodTypes = FoodTypes.valueOf(type.toUpperCase()).number;
                 //System.out.println(numberOfFoodTypes);
                 restList.clear();
+                System.out.println("Size" + restList.size());
+
                 restList = rDB.GetRestaurants(numberOfFoodTypes, null, null);
+                //restList.add(new ETPlace());
                 //System.out.println("Size" + restList.size());
                 mAdapter.clear();
+                mAdapter.addAll(restList);
                 mAdapter.notifyDataSetChanged();
                 //((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
                 System.out.println(numberOfFoodTypes);
