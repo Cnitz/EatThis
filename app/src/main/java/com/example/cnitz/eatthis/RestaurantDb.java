@@ -103,7 +103,7 @@ public final class RestaurantDb  {
 		values.put(RestaurantEntry.COLUMN_LONG, place.getLongitude());
 		values.put(RestaurantEntry.COLUMN_FOOD_TYPE, place.getFoodType());
 		values.put(RestaurantEntry.COLUMN_RATING, place.getRating());
-		values.put(RestaurantEntry.COLUMN_PRICE_LEVEL, place.getPrice().toString());
+		values.put(RestaurantEntry.COLUMN_PRICE_LEVEL, place.getPrice().ordinal());
 	
 		return writableDatabase.insertOrThrow(RestaurantEntry.TABLE_NAME, null, values);
 
@@ -112,7 +112,7 @@ public final class RestaurantDb  {
 	
 	// grab based on food type, rating, price
 	// unittest
-	public List<ETPlace> GetRestaurants(Integer foodType, Double rating, Price price) {
+	public List<ETPlace> GetRestaurants(Integer foodType, Double rating, String price) {
 
 		RestaurantDbHelper dbHelper;
 		List<ETPlace> restaurants = new ArrayList<ETPlace>();
@@ -128,32 +128,25 @@ public final class RestaurantDb  {
 			RestaurantEntry.COLUMN_PRICE_LEVEL
 		};
 		String selection = "";
-		List<String> selectionColumns;
-		int selections;
-/*
+		List<String> selectionColumns = new ArrayList<String>();
+		int selections = 0;
+
+
 		if(foodType != null) {
-			selections;
-			selection = selection + RestaurantEntry.COLUMN_FOOD_TYPE + "=?";
-			selectionColumns.add(foodType.toString);
+			selections++;
+			selection = selection + RestaurantEntry.COLUMN_FOOD_TYPE + "=" + foodType.toString();
 		}
-		if(foodType != null) {
-			selections;
-			selection = selection + RestaurantEntry.COLUMN_FOOD_TYPE + "=?";
-			selectionColumns.add(foodType.toString);
+		if(rating != null) {
+			if(selections > 0) selection = selection + " AND ";
+			selections++;
+			selection = selection + RestaurantEntry.COLUMN_RATING + "=" + rating.toString();
 		}
-		if(foodType != null) {
-			selections;
-			selection = selection + RestaurantEntry.COLUMN_FOOD_TYPE + "=?";
-			selectionColumns.add(foodType.toString);
+		if(price != null) {
+			if(selections > 0) selection = selection + " AND ";
+			selection = selection + RestaurantEntry.COLUMN_PRICE_LEVEL + "=" + Price.valueOf(price).ordinal();
+
 		}
-			
-		
-		rating != null 
-		price != null) {
-			
-			
-		}
-*/
+
 
 		if(writableDatabase == null) {
 			dbHelper = new RestaurantDbHelper(mContext);
@@ -164,7 +157,7 @@ public final class RestaurantDb  {
 		Cursor cursor = writableDatabase.query(
     			RestaurantEntry.TABLE_NAME,  // The table to query
     			restaurantColumns,           // The columns to return
-    			null,                        // The columns for the WHERE clause
+    			selection,                        // The columns for the WHERE clause
     			null,                        // The values for the WHERE clause
 			null,                        // don't group the rows
 			null,                        // don't filter by row groups
@@ -212,10 +205,10 @@ public final class RestaurantDb  {
 					cursor.getColumnIndexOrThrow(
 						RestaurantEntry.COLUMN_FOOD_TYPE)));
 			place.setPrice(
-				Price.valueOf(
-					cursor.getString(
+				Price.values()[
+					cursor.getInt(
 						cursor.getColumnIndexOrThrow(
-							RestaurantEntry.COLUMN_PRICE_LEVEL))));
+							RestaurantEntry.COLUMN_PRICE_LEVEL))]);
 			restaurants.add(place);
 
 		} while(cursor.moveToNext()); 
@@ -253,11 +246,12 @@ public final class RestaurantDb  {
 			place.setName("restaurant " + i);
 			place.setAddress(i + "23 Main St, Lafayette, IN 47904");
 			// 40.425408, -86.919722
-			place.setLatitude(40.425404 + (i/1000));
-			place.setLongitude(-86.919722 + (i/1000));
-			place.setRating(3 + (i/10));
+			place.setLatitude(40.425404 + (i / 1000));
+			place.setLongitude(-86.919722 + (i / 1000));
+			place.setRating((i * .1) + 3.0);
 			place.setFoodType(i);
-			place.setPrice(Price.valueOf("FREE"));
+            if(i % 2 == 0) place.setPrice(Price.valueOf("FREE"));
+            else place.setPrice(Price.valueOf("INEXPENSIVE"));
 
 			InsertRestaurant(place);
 		}
