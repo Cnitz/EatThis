@@ -9,8 +9,10 @@ import android.util.Log;
 
 import com.example.cnitz.eatthis.SchedData.TableInfo;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -115,7 +117,7 @@ public class SchedHelper extends SQLiteOpenHelper {
         Cursor cursor;
         String select = "SELECT * FROM "+TableInfo.TABLE_NAME+" WHERE ";
 
-      /*  if(day == Calendar.TUESDAY){
+        if(day == Calendar.TUESDAY){
 
             select = select+TableInfo.COLUMN_TUESDAY+" = '1'";
         }
@@ -127,14 +129,45 @@ public class SchedHelper extends SQLiteOpenHelper {
         }
         else if(day == Calendar.FRIDAY){
             select = select+TableInfo.COLUMN_FRIDAY+" = '1'";
-        }*/
-       // else {
+        }
+        else {
             select = select+TableInfo.COLUMN_MONDAY+" = '1'";
-      //  }
+        }
 
         cursor = db.rawQuery(select,null);
+        cursor.moveToFirst();
         if(cursor.isAfterLast()) return null;
         else{
+            int hours = new Time(System.currentTimeMillis()).getHours();
+            int keeper = 0, counter = 0;
+            int smallest = 24;
+            while(!cursor.isAfterLast()){
+                String hourc = cursor.getString(cursor.getColumnIndexOrThrow(TableInfo.COLUMN_STARTTIME));
+                int hour = 24;
+                switch(hourc){
+                    case "7:30": hour = 7; break;
+                    case "8:30": hour = 8; break;
+                    case "9:30": hour = 9; break;
+                    case "10:30": hour = 10; break;
+                    case "11:30": hour = 11; break;
+                    case "12:30": hour = 12; break;
+                    case "1:30": hour = 13; break;
+                    case "2:30": hour = 14; break;
+                    case "3:30": hour = 15; break;
+                    case "4:30": hour = 16; break;
+                    case "5:30": hour = 17; break;
+
+                }
+                int check = hours-hour;
+                if(check > 0 && check < smallest){
+                    keeper = counter;
+                }
+                counter++;
+                cursor.moveToNext();
+            }
+
+            cursor.moveToFirst();
+            if(counter>0)cursor.move(counter-1);
             sclass.setName(cursor.getString(cursor.getColumnIndexOrThrow(TableInfo.COLUMN_NAME)));
             sclass.setStartTime(cursor.getString(cursor.getColumnIndexOrThrow(TableInfo.COLUMN_STARTTIME)));
             sclass.setEndTime(cursor.getString(cursor.getColumnIndexOrThrow(TableInfo.COLUMN_ENDTIME)));
