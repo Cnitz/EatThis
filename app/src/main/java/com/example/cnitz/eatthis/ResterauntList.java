@@ -46,7 +46,12 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        MapFragment fragment = new MapFragment();
+        transaction.replace(R.id.content_frame, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
 
 
         
@@ -164,7 +169,8 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         MapFragment fragment = new MapFragment();
-        transaction.add(R.id.content_frame, fragment);
+        transaction.replace(R.id.content_frame, fragment);
+        transaction.addToBackStack(null);
 
 
         transaction.commit();
