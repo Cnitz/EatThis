@@ -54,7 +54,15 @@ public class SchedList extends Activity implements SchedAddClassFragment.OnFragm
                     }
                 }
         );
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent myIntent=new Intent(v.getContext(),ResterauntList.class);
+                startActivity(myIntent);
+
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

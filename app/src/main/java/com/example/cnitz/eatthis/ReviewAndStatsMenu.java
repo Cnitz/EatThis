@@ -15,6 +15,7 @@ public class ReviewAndStatsMenu extends ActionBarActivity {
 
     Button newReview;
     Button reviewList;
+    Button back;
     Context ctx = this;
 
     @Override
@@ -24,6 +25,7 @@ public class ReviewAndStatsMenu extends ActionBarActivity {
 
         newReview = (Button) findViewById(R.id.NewReview);
         reviewList = (Button) findViewById(R.id.ReviewList);
+        back = (Button) findViewById(R.id.button5);
 
         newReview.setOnClickListener(
                 new View.OnClickListener() {
@@ -48,6 +50,16 @@ public class ReviewAndStatsMenu extends ActionBarActivity {
                 }
         );
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent myIntent=new Intent(v.getContext(),ResterauntList.class);
+                startActivity(myIntent);
+
+            }
+        });
+
     }
 
     @Override
@@ -71,4 +83,5 @@ public class ReviewAndStatsMenu extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -96,5 +96,22 @@ public final class RestaurantDbTest extends AndroidTestCase  {
 
     }
 
-}
+    @Test
+    public void testGetResturaunt() {
+        rDB.CreateExampleData();
 
+        List<ETPlace> places = rDB.GetRestaurants(1, null, null);
+        assertEquals(2, places.size());
+        assertEquals(places.get(0).getFoodType(), 1);
+
+        places = rDB.GetRestaurants(null, 3.0, null);
+        assertEquals(1, places.size());
+        assertEquals(places.get(0).getRating(), 3.0);
+
+        places = rDB.GetRestaurants(null, null, "FREE");
+        assertEquals(5, places.size());
+        assertEquals(places.get(0).getPrice(),Price.valueOf("FREE"));
+
+    }
+
+}
