@@ -24,6 +24,7 @@ import android.util.Log;
 import com.example.cnitz.eatthis.dummy.DummyContent;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -340,6 +341,47 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
 
     public void chooseForMe() {
         //connect to greg's matching algorithm.
+        SchedHelper sh = new SchedHelper(getActivity());
+        SchedClass sclass = sh.getNextClass(sh);
+        List<ETPlace> list = new ArrayList<ETPlace>();
+        list = rDB.GetAllRestaurants();
+        int index = 0;
+        switch(sclass.getLocation()){
+            case "Lawson": index = 0;
+                break;
+            case "Armstrong": index = 1;
+                break;
+            case "EE": index = 2;
+                break;
+            case "CL50": index = 3;
+                break;
+            case "PMU": index = 4;
+                break;
+            case "Lily": index = 5;
+                break;
+
+        }
+        //LAWSON = 0, ARMS = 1, EE = 2, CL50 = 3, PMU = 4, LILY: 5
+        //Locs Lawson: Lat:  Long:  ARMS:  LAT:  LONG:  EE: LAT:  LONG:  CL50: LAT: LONG: PMU:  LAT:  LONG:  LILY LAT: LONG:
+
+        double lats[] = {40.427595,40.431260 ,40.42876 ,40.426316 ,40.424741 ,40.423467};
+        double longs[] = {-86.916947,-86.914678 ,-86.911929 ,-86.915010 ,-86.911486 ,-86.917886};
+
+        double smallestVal = 10000.0;
+        ETPlace    smallest = null;
+        Iterator<ETPlace> it = list.iterator();
+        while(it.hasNext()){
+            ETPlace p = it.next();
+            double lat1 = p.getLatitude();
+            double long1 = p.getLongitude();
+            double dist = Math.sqrt((lats[index]-lat1)*(lats[index]-lat1) - (longs[index]-long1)*(longs[index]-long1));
+            if(dist < smallestVal){
+                smallestVal = dist;
+                smallest = p;
+            }
+
+        }
+
     }
 
     @Override
