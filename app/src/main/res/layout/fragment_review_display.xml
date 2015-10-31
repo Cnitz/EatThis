@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.example.cnitz.eatthis.ReviewDisplay">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Restaurant"
+        android:id="@+id/nameLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/priceLabel"
+        android:layout_alignStart="@+id/priceLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Price"
+        android:id="@+id/priceLabel"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/nameLabel"
+        android:layout_alignLeft="@+id/menuItemsLabel"
+        android:layout_alignStart="@+id/menuItemsLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Menu Items"
+        android:id="@+id/menuItemsLabel"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/priceLabel"
+        android:layout_alignLeft="@+id/summaryLabel"
+        android:layout_alignStart="@+id/summaryLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Summary"
+        android:id="@+id/summaryLabel"
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/menuItemsLabel"
+        android:layout_alignLeft="@+id/ratingLabel"
+        android:layout_alignStart="@+id/ratingLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Rating"
+        android:id="@+id/ratingLabel"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/summaryLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Date"
+        android:id="@+id/dateLabel"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/ratingDisp"
+        android:layout_alignLeft="@+id/ratingLabel"
+        android:layout_alignStart="@+id/ratingLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/nameDisp"
+        android:layout_below="@+id/nameLabel"
+        android:layout_alignLeft="@+id/priceLabel"
+        android:layout_alignStart="@+id/priceLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=" "
+        android:id="@+id/priceDisp"
+        android:layout_below="@+id/priceLabel"
+        android:layout_alignLeft="@+id/menuItemsLabel"
+        android:layout_alignStart="@+id/menuItemsLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/menuItemsDisp"
+        android:layout_below="@+id/menuItemsLabel"
+        android:layout_alignLeft="@+id/summaryLabel"
+        android:layout_alignStart="@+id/summaryLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/summaryDisp"
+        android:layout_below="@+id/summaryLabel"
+        android:layout_alignLeft="@+id/ratingLabel"
+        android:layout_alignStart="@+id/ratingLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/ratingDisp"
+        android:layout_below="@+id/ratingLabel"
+        android:layout_alignLeft="@+id/dateLabel"
+        android:layout_alignStart="@+id/dateLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/dateDisp"
+        android:layout_below="@+id/dateLabel"
+        android:layout_alignLeft="@+id/dateLabel"
+        android:layout_alignStart="@+id/dateLabel" />
+
+</RelativeLayout>

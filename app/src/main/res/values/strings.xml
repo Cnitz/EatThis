@@ -10,4 +10,7 @@
     <string name="title_activity_statistics_input">StatisticsInput</string>
     <string name="title_activity_review_list">ReviewList</string>
     <string name="title_activity_review_and_stats_menu">ReviewAndStatsMenu</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

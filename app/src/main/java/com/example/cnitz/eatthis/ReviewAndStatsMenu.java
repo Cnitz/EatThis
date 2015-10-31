@@ -1,5 +1,8 @@
 package com.example.cnitz.eatthis;
 
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ public class ReviewAndStatsMenu extends ActionBarActivity {
 
     Button newReview;
     Button reviewList;
+    Context ctx = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +30,22 @@ public class ReviewAndStatsMenu extends ActionBarActivity {
                     @Override
                     public void onClick(View v) {
                         Intent goToInput = new Intent(ReviewAndStatsMenu.this, StatisticsInput.class);
+                        android.support.v4.app.TaskStackBuilder.create(ctx).addNextIntentWithParentStack(goToInput).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
                         ReviewAndStatsMenu.this.startActivity(goToInput);
                     }
                 }
 
+        );
+
+        reviewList.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent goToList = new Intent(ReviewAndStatsMenu.this, ReviewList.class);
+                        android.support.v4.app.TaskStackBuilder.create(ctx).addNextIntentWithParentStack(goToList).getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                        ReviewAndStatsMenu.this.startActivity(goToList);
+                    }
+                }
         );
 
     }
