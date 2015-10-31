@@ -40,8 +40,8 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         setupDrawer();
 
         mActivityTitle = "EatThis";
-        setContentView(R.layout.activity_map_fragment);
-        addMapFragment();
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -79,6 +79,7 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
                         break;
                     case 2:
                         text = "You clicked on option 2";
+                        addMapFragment();
                         break;
                     case 3:
                         text = "You clicked on option 3";
@@ -163,7 +164,7 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         MapFragment fragment = new MapFragment();
-        transaction.add(R.id.mapView, fragment);
+        transaction.add(R.id.content_frame, fragment);
 
 
         transaction.commit();
