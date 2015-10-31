@@ -69,7 +69,7 @@ public class MapFragment extends Fragment {
                     .newCameraPosition(cameraPosition));
         }
         else{
-            addMarker(40.4287175, -86.9139992, "CURRENT LOCATION");
+            //addMarker(40.4287175, -86.9139992, "CURRENT LOCATION");
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(new LatLng(40.4287175, -86.9139992)).zoom(20).build();
             googleMap.animateCamera(CameraUpdateFactory
