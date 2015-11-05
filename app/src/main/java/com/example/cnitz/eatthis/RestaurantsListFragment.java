@@ -410,11 +410,11 @@ public class RestaurantsListFragment extends Fragment implements AbsListView.OnI
             case R.id.button:
                 createFoodtype();
                 break;
-            case R.id.button2:
+            case R.id.button3:
                 System.out.println("at button 2");
                 createPriceRange();
                 break;
-            case R.id.button3:
+            case R.id.button2:
                 createRatingRange();
                 break;
             case R.id.button4:

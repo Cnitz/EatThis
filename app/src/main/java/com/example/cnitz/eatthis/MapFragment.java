@@ -70,10 +70,10 @@ public class MapFragment extends Fragment {
         }
         else{
             //addMarker(40.4287175, -86.9139992, "CURRENT LOCATION");
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(40.4287175, -86.9139992)).zoom(20).build();
+           CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(40.4287175, -86.9139992)).zoom(15).build();
             googleMap.animateCamera(CameraUpdateFactory
-                    .newCameraPosition(cameraPosition));
+                .newCameraPosition(cameraPosition));
 
         }
        //addMarker(40.434039999999996, -86.9250555, "ZBT");

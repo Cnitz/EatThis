@@ -1,8 +1,10 @@
 package com.example.cnitz.eatthis;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -124,39 +126,61 @@ public class SchedAddClassFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         //TODO: Determine Required Fields
-                        getActivity().findViewById(R.id.addClass).setVisibility(View.VISIBLE);
-                        getActivity().findViewById(R.id.back).setVisibility(View.VISIBLE);
+
                         SchedClass sclass = new SchedClass();
                         String className = name.getText().toString();
-                        String loc = name.getText().toString();
-                        if (loc.equals(null)) className = "ARMS";
-                        if (className.equals(null)) className = "noName";
-                        sclass.setName(className);
-                        //Toast.makeText(SchedInputFragment.this, name.getText(), Toast.LENGTH_SHORT).show();
-                        //else
-                        //Toast.makeText(SchedInput.this, "Name field must be populated.", Toast.LENGTH_SHORT).show();
-                        sclass.setLocation(locations.getSelectedItem().toString());
-                        sclass.setDays(days.getSelectedItem().toString());
-                        sclass.setStartTime(startTime.getSelectedItem().toString());
-                        sclass.setEndTime(endTime.getSelectedItem().toString());
+                        if(className.equals("")){
+                            AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
+                            ad.setTitle("Error");
+                            ad.setMessage("Class Name cannot be empty");
+                            ad.setNeutralButton("Ok", new AlertDialog.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            ad.show();
+                        }
+                        else if(endTime.getSelectedItemPosition() <= startTime.getSelectedItemPosition()){
+                            AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
+                            ad.setTitle("Error");
+                            ad.setMessage("Class cannot start after it ends");
+                            ad.setNeutralButton("Ok", new AlertDialog.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            ad.show();
+                        }
+                        else {
+                            getActivity().findViewById(R.id.addClass).setVisibility(View.VISIBLE);
+                            getActivity().findViewById(R.id.back).setVisibility(View.VISIBLE);
+                            String loc = name.getText().toString();
+                            if (loc.equals(null)) className = "ARMS";
+                            if (className.equals(null)) className = "noName";
+                            sclass.setName(className);
+                            //Toast.makeText(SchedInputFragment.this, name.getText(), Toast.LENGTH_SHORT).show();
+                            //else
+                            //Toast.makeText(SchedInput.this, "Name field must be populated.", Toast.LENGTH_SHORT).show();
+                            sclass.setLocation(locations.getSelectedItem().toString());
+                            sclass.setDays(days.getSelectedItem().toString());
+                            sclass.setStartTime(startTime.getSelectedItem().toString());
+                            sclass.setEndTime(endTime.getSelectedItem().toString());
 
 
+                            SchedHelper rdb = new SchedHelper(getActivity());
+                            rdb.addClass(rdb, sclass);
 
 
-                        SchedHelper rdb = new SchedHelper(getActivity());
-                        rdb.addClass(rdb, sclass);
+                            //name.setText("");
+                            //location.setText("");
 
+                            Toast.makeText(getActivity(), "Added to the DB!", Toast.LENGTH_SHORT).show();
 
-                        //name.setText("");
-                        //location.setText("");
-
-                        Toast.makeText(getActivity(), "Added to the DB!", Toast.LENGTH_SHORT).show();
-
-                        fragmentManager = getFragmentManager();
-                        fragmentManager.popBackStackImmediate("addClass", 0);
-                        Intent myIntent = new Intent(getActivity(), SchedList.class);
-                        getActivity().startActivity(myIntent);
-
+                            fragmentManager = getFragmentManager();
+                            fragmentManager.popBackStackImmediate("addClass", 0);
+                            Intent myIntent = new Intent(getActivity(), SchedList.class);
+                            getActivity().startActivity(myIntent);
+                        }
                     }
                 }
         );
