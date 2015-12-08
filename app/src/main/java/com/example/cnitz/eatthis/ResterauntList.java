@@ -65,7 +65,7 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
 
 
     private void addDrawerItems() {
-        String[] drawerStrings = { "Restaurant List", "Schedule", "Map ", "Statistics", "Preferences" };
+        String[] drawerStrings = { "Restaurant List", "Schedule", "Map ", "Statistics"};
 
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, drawerStrings);
         mDrawerList.setAdapter(mAdapter);
@@ -98,10 +98,7 @@ public class ResterauntList extends ActionBarActivity  implements RestaurantsLis
                         Intent cnitzIntent = new Intent(view.getContext(),ReviewAndStatsMenu.class);
                         startActivity(cnitzIntent);
                         break;
-                    case 4:
-                        //Preference
-                        text = "You clicked on option 4";
-                        break;
+
                 }
                 //Toast.makeText(ResterauntList.this, text, Toast.LENGTH_SHORT).show();
             }
